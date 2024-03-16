@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Persistance;
 using Infrastructure;
 using Insfrastructure;
+using Amazon.S3;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,8 @@ builder.Services.AddPersistanceServices(builder.Configuration);
 builder.Services.AddInfrastructureServices();
 builder.Services.AddSecurityServices();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
+builder.Services.AddAWSService<IAmazonS3>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 const string tokenOptionsConfigurationSection = "TokenOptions";
@@ -42,6 +45,9 @@ builder.Services
     }
     );
 
+
+builder.Services.AddStackExchangeRedisCache(opt => opt.Configuration = "localhost:6379");
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -59,7 +65,7 @@ if (app.Environment.IsProduction())
 
 app.UseHttpsRedirection();
 
-app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+app.UseCors(builder => builder.WithOrigins("http://localhost:4200", "https://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
 app.UseAuthorization();
 

@@ -1,5 +1,4 @@
 ﻿using Core.Persistance.Repositories;
-using Core.Security.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +9,22 @@ namespace Domain.Entities
 {
     public class BlogFile: Entity<Guid>
     {
-        public int UserId { get; set; }
         public string Name { get; set; }
-        public string FilePath { get; set; }
-        public string FileUrl { get; set; }
-
-
-        public virtual User? User { get; set; }
+        public string Path { get; set; }
+        public string Url { get; set; }
 
         public BlogFile()
         {
             Name = string.Empty;
-            FilePath = string.Empty;
-            FileUrl = string.Empty;
-
+            Path = string.Empty;
+            Url = string.Empty;
         }
 
-        public BlogFile(Guid id, int userId, string name, string filePath, string fileUrl, User? user):base(id) 
+        public BlogFile(Guid id, string name, string path, string url):base(id)
         {
-            UserId = userId;
             Name = name;
-            FilePath = filePath;
-            FileUrl = fileUrl;
-            User = user;
+            Path = path;
+            Url = url;
         }
     }
 }

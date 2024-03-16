@@ -1,5 +1,6 @@
 ﻿using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Caching;
 using Core.Application.Request;
 using Core.Application.Response;
 using Core.Persistance.Paging;
@@ -13,9 +14,17 @@ using System.Threading.Tasks;
 
 namespace Application.Features.FeedBacks.Queries.GetList
 {
-    public class GetListFeedBackQuery: IRequest<GetListResponse<GetListFeedBackListItemDto>>
+    public class GetListFeedBackQuery: IRequest<GetListResponse<GetListFeedBackListItemDto>>, ICachableRequest
     {
         public PageRequest PageRequest { get; set; }
+
+        public string CacheKey => $"GetListFeedBackQuery({PageRequest.PageIndex},{PageRequest.PageSize})";
+
+        public bool ByPassCache { get;}
+
+        public string? CacheGroupKey => "GetListFeedBacks";
+
+        public TimeSpan? SlidingExpiration { get; }
 
         public GetListFeedBackQuery()
         {

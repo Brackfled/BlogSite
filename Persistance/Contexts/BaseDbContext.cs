@@ -21,8 +21,8 @@ namespace Persistance.Contexts
         public DbSet<FeedBack> FeedBacks { get; set; }
 
         public DbSet<BlogFile> BlogFiles { get; set; }
-        public DbSet<ImageFile> ImageFiles { get; set; }
-
+        public DbSet<PPFile> PPFiles { get; set; }
+        public DbSet<SubjectImageFile> SubjectImageFiles { get; set; }
 
         public DbSet<OperationClaim> OperationClaims { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }

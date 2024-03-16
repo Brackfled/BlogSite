@@ -43,7 +43,7 @@ namespace Persistence.EntityConfigurations
             List<User> users = new();
 
             HashingHelper.CreatePasswordHash(
-                    password:"passw0rd",
+                   password:"passw0rd",
                     passwordHash:out byte[] passwordHash,
                     passwordSalt:out byte[] passwordSalt
                 );

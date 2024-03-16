@@ -2,6 +2,7 @@
 using Application.Features.Subjects.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Caching;
 using Core.CrossCuttingConserns.Exceptions.Types;
 using Domain.Entities;
 using MediatR;
@@ -13,10 +14,16 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Subjects.Commands.Update
 {
-    public class UpdateSubjectCommad: IRequest<UpdatedSubjectResponse>
+    public class UpdateSubjectCommad: IRequest<UpdatedSubjectResponse>, ICacheRemoverRequest
     {
         public int UserId { get; set; }
-        
+
+        public string? CacheKey => "";
+
+        public bool ByPassCache { get; }
+
+        public string? CacheGroupKey => "GetSubjects";
+
         public UpdateSubjectDto UpdateSubjectDto { get; set; }
 
         public class UpdateSubjectCommandHandler: IRequestHandler<UpdateSubjectCommad, UpdatedSubjectResponse>

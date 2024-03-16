@@ -26,7 +26,7 @@ namespace Persistence.EntityConfigurations
 
             builder.HasMany(oc => oc.UserOperationClaims);
 
-            builder.HasData(getSeeds());
+           builder.HasData(getSeeds());
 
         }
 
@@ -34,7 +34,7 @@ namespace Persistence.EntityConfigurations
         {
             int id = 0;
 
-            HashSet<OperationClaim> seeds = new()
+           HashSet<OperationClaim> seeds = new()
             {
                 new OperationClaim {Id = ++id, Name=GeneralOperationClaims.Admin}
             };

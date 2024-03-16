@@ -25,8 +25,8 @@ namespace Persistance
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IFeedBackRepository, FeedBackRepository>();
 
-            services.AddScoped<IBlogFileRepository, BlogFileRepository>();
-            services.AddScoped<IImageFileRepository, ImageFileRepository>();
+            services.AddScoped<IPPFileRepository, PPFileRepository>();
+            services.AddScoped<ISubjectImageFileRepository, SubjectImageFileRepository>();
 
             services.AddScoped<IOperationClaimRepository, OperationClaimRepository>();
             services.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();

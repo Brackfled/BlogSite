@@ -1,7 +1,6 @@
 ﻿using Application.Features.FeedBacks.Commands.Create;
 using Application.Features.FeedBacks.Commands.Delete;
 using Application.Features.FeedBacks.Queries.GetList;
-using Application.Features.ImageFiles.Queries.GetList;
 using Application.Features.Subjects.Queries.GetList;
 using Core.Application.Request;
 using Core.Application.Response;

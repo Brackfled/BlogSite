@@ -1,5 +1,6 @@
 ﻿using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Caching;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -10,11 +11,17 @@ using System.Threading.Tasks;
 
 namespace Application.Features.FeedBacks.Commands.Create
 {
-    public class CreateFeedBackCommand: IRequest<CreatedFeedBackResponse>
+    public class CreateFeedBackCommand: IRequest<CreatedFeedBackResponse>, ICacheRemoverRequest
     {
         public string Name { get; set; }
         public string Email { get; set; }
         public string Text { get; set; }
+
+        public string? CacheKey => "";
+
+        public bool ByPassCache { get;}
+
+        public string? CacheGroupKey => "GetListFeedBacks";
 
         public CreateFeedBackCommand(string name, string email, string text)
         {

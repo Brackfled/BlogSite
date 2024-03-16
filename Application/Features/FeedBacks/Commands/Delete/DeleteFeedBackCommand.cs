@@ -1,6 +1,7 @@
 ﻿using Application.Features.FeedBacks.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Caching;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -11,9 +12,15 @@ using System.Threading.Tasks;
 
 namespace Application.Features.FeedBacks.Commands.Delete
 {
-    public class DeleteFeedBackCommand: IRequest<DeletedFeedBackResponse>
+    public class DeleteFeedBackCommand: IRequest<DeletedFeedBackResponse>, ICacheRemoverRequest
     {
         public Guid Id { get; set; }
+
+        public string? CacheKey => "";
+
+        public bool ByPassCache { get; }
+
+        public string? CacheGroupKey => "GetListFeedBacks";
 
         public class DeleteFeedBackCommandHandler: IRequestHandler<DeleteFeedBackCommand, DeletedFeedBackResponse>
         {

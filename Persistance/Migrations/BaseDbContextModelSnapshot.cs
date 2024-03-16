@@ -189,8 +189,8 @@ namespace Persistance.Migrations
                             Email = "oncellhsyn@outlook.com",
                             FirstName = "Hüseyin",
                             LastName = "ÖNCEL",
-                            PasswordHash = new byte[] { 21, 106, 175, 83, 54, 54, 124, 141, 200, 148, 181, 247, 61, 97, 89, 26, 56, 16, 119, 81, 101, 177, 52, 250, 134, 206, 61, 218, 85, 58, 4, 97, 248, 126, 11, 47, 62, 170, 71, 107, 153, 228, 41, 131, 161, 160, 18, 179, 181, 195, 16, 235, 142, 68, 8, 1, 58, 250, 44, 178, 194, 75, 145, 182 },
-                            PasswordSalt = new byte[] { 195, 164, 29, 149, 141, 189, 13, 51, 214, 226, 254, 147, 170, 226, 147, 67, 183, 36, 115, 184, 151, 17, 169, 57, 21, 125, 193, 227, 240, 115, 48, 170, 141, 36, 106, 94, 92, 185, 217, 194, 124, 138, 250, 146, 254, 145, 89, 148, 215, 93, 142, 183, 59, 215, 54, 71, 63, 152, 243, 197, 114, 145, 235, 205, 224, 107, 232, 202, 86, 225, 228, 36, 252, 121, 181, 219, 38, 80, 193, 235, 180, 156, 38, 246, 207, 249, 5, 147, 172, 174, 193, 208, 29, 43, 92, 11, 55, 202, 211, 34, 178, 0, 66, 140, 141, 172, 70, 82, 54, 107, 141, 135, 236, 97, 194, 34, 203, 215, 42, 187, 34, 64, 22, 180, 62, 152, 227, 2 },
+                            PasswordHash = new byte[] { 99, 27, 216, 28, 172, 86, 146, 36, 129, 226, 179, 120, 171, 193, 15, 37, 143, 191, 41, 186, 227, 208, 185, 78, 251, 144, 244, 194, 93, 30, 210, 102, 125, 81, 187, 8, 114, 221, 12, 202, 112, 230, 172, 54, 162, 152, 53, 26, 201, 27, 141, 15, 30, 134, 144, 97, 188, 146, 67, 190, 18, 131, 182, 128 },
+                            PasswordSalt = new byte[] { 187, 242, 63, 253, 248, 243, 115, 79, 146, 121, 255, 25, 74, 61, 93, 80, 83, 56, 27, 18, 65, 105, 240, 135, 184, 232, 181, 25, 210, 152, 227, 122, 236, 220, 85, 27, 104, 238, 119, 153, 80, 200, 131, 169, 74, 105, 81, 251, 16, 46, 234, 211, 94, 185, 7, 229, 205, 10, 50, 187, 5, 85, 122, 99, 104, 8, 111, 227, 113, 47, 96, 96, 69, 176, 235, 7, 156, 60, 65, 241, 35, 60, 54, 47, 169, 139, 59, 232, 163, 225, 56, 226, 232, 80, 7, 227, 167, 254, 248, 106, 215, 37, 152, 32, 156, 167, 244, 198, 225, 235, 162, 193, 213, 43, 153, 225, 86, 202, 66, 229, 219, 253, 253, 207, 77, 149, 29, 12 },
                             Status = true
                         });
                 });
@@ -246,45 +246,41 @@ namespace Persistance.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("Id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreatedDate");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("DeletedDate");
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("FilePath")
+                    b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("FilePath");
-
-                    b.Property<string>("FileUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("FileUrl");
+                        .HasMaxLength(21)
+                        .HasColumnType("nvarchar(21)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Name");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("UpdatedDate");
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("UserId");
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.ToTable("BlogFiles");
 
-                    b.ToTable("BlogFiles", (string)null);
+                    b.HasDiscriminator<string>("Discriminator").HasValue("BlogFile");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Domain.Entities.Category", b =>
@@ -357,40 +353,6 @@ namespace Persistance.Migrations
                     b.ToTable("FeedBacks", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.ImageFile", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("Id");
-
-                    b.Property<Guid>("BlogFileId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("BlogFileId");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("DeletedDate");
-
-                    b.Property<int>("ImageFileBracket")
-                        .HasColumnType("int")
-                        .HasColumnName("ImageFileBracket");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("UpdatedDate");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BlogFileId");
-
-                    b.ToTable("ImageFiles", (string)null);
-                });
-
             modelBuilder.Entity("Domain.Entities.Subject", b =>
                 {
                     b.Property<Guid>("Id")
@@ -442,6 +404,30 @@ namespace Persistance.Migrations
                     b.ToTable("Subject", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.PPFile", b =>
+                {
+                    b.HasBaseType("Domain.Entities.BlogFile");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("UserId");
+
+                    b.HasDiscriminator().HasValue("PPFile");
+                });
+
+            modelBuilder.Entity("Domain.Entities.SubjectImageFile", b =>
+                {
+                    b.HasBaseType("Domain.Entities.BlogFile");
+
+                    b.Property<Guid?>("SubjectId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasIndex("SubjectId");
+
+                    b.HasDiscriminator().HasValue("SubjectImageFile");
+                });
+
             modelBuilder.Entity("Core.Security.Entities.RefreshToken", b =>
                 {
                     b.HasOne("Core.Security.Entities.User", "User")
@@ -472,28 +458,6 @@ namespace Persistance.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.Entities.BlogFile", b =>
-                {
-                    b.HasOne("Core.Security.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.Entities.ImageFile", b =>
-                {
-                    b.HasOne("Domain.Entities.BlogFile", "BlogFile")
-                        .WithMany()
-                        .HasForeignKey("BlogFileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BlogFile");
-                });
-
             modelBuilder.Entity("Domain.Entities.Subject", b =>
                 {
                     b.HasOne("Domain.Entities.Category", "Category")
@@ -511,6 +475,24 @@ namespace Persistance.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.PPFile", b =>
+                {
+                    b.HasOne("Core.Security.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.SubjectImageFile", b =>
+                {
+                    b.HasOne("Domain.Entities.Subject", "Subject")
+                        .WithMany()
+                        .HasForeignKey("SubjectId");
+
+                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("Core.Security.Entities.OperationClaim", b =>

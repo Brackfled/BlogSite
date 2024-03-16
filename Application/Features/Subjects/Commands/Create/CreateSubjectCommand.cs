@@ -1,5 +1,6 @@
 ﻿using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Caching;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -10,11 +11,17 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Subjects.Commands.Create
 {
-    public class CreateSubjectCommand: IRequest<CreatedSubjectResponse>
+    public class CreateSubjectCommand: IRequest<CreatedSubjectResponse>, ICacheRemoverRequest
     {
         public int UserId { get; set; }
         public CreateSubjectDto CreateSubjectDto { get; set; }
-        
+
+        public string? CacheKey => "";
+
+        public bool ByPassCache { get; }
+
+        public string? CacheGroupKey => "GetSubjects";
+
         public class CreateSubjectCommandHandler: IRequestHandler<CreateSubjectCommand, CreatedSubjectResponse>
         {
             private readonly ISubjectRepository _subjectRepository;

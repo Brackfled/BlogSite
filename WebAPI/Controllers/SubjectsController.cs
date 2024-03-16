@@ -3,6 +3,7 @@ using Application.Features.Subjects.Commands.Delete;
 using Application.Features.Subjects.Commands.Update;
 using Application.Features.Subjects.Queries.GetById;
 using Application.Features.Subjects.Queries.GetList;
+using Application.Features.Subjects.Queries.GetListDetails;
 using Application.Features.Subjects.Queries.GetListFromAuth;
 using Core.Application.Request;
 using Core.Application.Response;
@@ -47,8 +48,8 @@ namespace WebAPI.Controllers
             return Ok(response);
         }
 
-        [HttpGet("GetById")]
-        public async Task<IActionResult> GetById([FromQuery] Guid id)
+        [HttpGet("GetById/{id}")]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             GetByIdSubjectQuery query = new() { Id = id };
             GetByIdSubjectResponse response = await Mediator.Send(query);
@@ -60,6 +61,13 @@ namespace WebAPI.Controllers
         {
             GetListFromAuthQuery query = new() { UserId = getUserIdFromRequest() };
             GetListResponse<GetListFromAuthSubjectListItemDto> response = await Mediator.Send(query);
+            return Ok(response);
+        }
+
+        [HttpGet("GetListDetail")]
+        public async Task<IActionResult> GetListDetail()
+        {
+            GetListResponse<GetListDetailSubjectListItemDto> response = await Mediator.Send(new GetListDetailSubjectQuery());
             return Ok(response);
         }
     }

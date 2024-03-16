@@ -3,6 +3,7 @@ using Application.Features.Subjects.Commands.Delete;
 using Application.Features.Subjects.Commands.Update;
 using Application.Features.Subjects.Queries.GetById;
 using Application.Features.Subjects.Queries.GetList;
+using Application.Features.Subjects.Queries.GetListDetails;
 using Application.Features.Subjects.Queries.GetListFromAuth;
 using AutoMapper;
 using Core.Application.Response;
@@ -45,6 +46,14 @@ namespace Application.Features.Subjects.Profiles
 
             CreateMap<IPaginate<Subject>, GetListResponse<GetListSubjectListItemDto>>().ReverseMap();
             CreateMap<Subject, GetListSubjectListItemDto>().ReverseMap();
+
+            CreateMap<Subject, GetListDetailSubjectListItemDto>()
+                .ForMember(destinationMember: s => s.FirstName, memberOptions: opt => opt.MapFrom(s => s.User.FirstName))
+                .ForMember(destinationMember: s => s.LastName, memberOptions: opt => opt.MapFrom(s => s.User.LastName))
+                .ForMember(destinationMember: s => s.Email, memberOptions: opt => opt.MapFrom(s => s.User.Email))
+                .ForMember(destinationMember: s => s.CategoryName, memberOptions: opt => opt.MapFrom(s => s.Category.Name))
+                .ReverseMap();
+            CreateMap<IPaginate<Subject>, GetListResponse<GetListDetailSubjectListItemDto>>().ReverseMap();
         }
     }
 }

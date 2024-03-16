@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Amazon.S3.Model;
+using Insfrastructure.Stroage.AWS;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +12,12 @@ namespace Infrastructure.Stroage
     public interface IStroage
     {
 
-        Task<(string fileName, string pathOrContainerName)> UploadAsync(string pathOrContainerName, IFormFile files);
-        Task DeleteAsync(string pathOrContainerName, string fileName);
-        List<string> GetFiles(string pathOrContainerName);
-        bool HasFile(string pathOrContainerName, string fileName);
-        Task<string> GetFileUrl(string fileName, string pathOrContainerName);
+        Task<string> CreateBucketAsync(string bucketName);
+        Task<ListBucketsResponse> GetListBucketsAsync();
+        Task<string> DeleteBucketAsync(string bucketName);
+        Task<(string fileName, string bucketName, string fileUrl)> UploadFileAsync(IFormFile formFile, string bucketName);
+        Task<List<S3ObjectDto>> GetListFilesAsync(string bucketName);
+        Task<DeleteObjectResponse> DeleteFileAsync(string bucketName, string fileName);
 
     }
 }
