@@ -98,9 +98,9 @@ namespace WebAPI.Controllers
         // =====================> SubjectImageFile ile ilgili endpointler <=====================
 
         [HttpPost("UploadSubjectImageFile")]
-        public async Task<IActionResult> UploadSubjectImageFile(Guid id, IFormFile formFile)
+        public async Task<IActionResult> UploadSubjectImageFile(Guid subjectId, IFormFile formFile)
         {
-            CreateSubjectImageFileDto dto = new() { SubjectId = id , BucketName ="flepix-blog-subjectfiles"};
+            CreateSubjectImageFileDto dto = new() { SubjectId = subjectId, BucketName ="flepix-blog-subjectfiles"};
             CreateSubjectImageFileCommand command = new() { CreateSubjectImageFileDto = dto, FormFile = formFile};
             CreatedSubjectImageFileResponse response = await Mediator.Send(command);
             return Ok(response);

@@ -66,6 +66,7 @@ namespace Application.Features.Users.Queries.GetListDetail
                     Id = request.Id,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
+                    Email = user.Email,
                     Status = user.Status,
                     Roles = roles
                 };

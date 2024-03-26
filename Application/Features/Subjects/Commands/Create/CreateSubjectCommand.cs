@@ -1,5 +1,6 @@
 ﻿using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Caching;
 using Domain.Entities;
 using MediatR;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Subjects.Commands.Create
 {
-    public class CreateSubjectCommand: IRequest<CreatedSubjectResponse>, ICacheRemoverRequest
+    public class CreateSubjectCommand: IRequest<CreatedSubjectResponse>, ICacheRemoverRequest, ISecuredRequest
     {
         public int UserId { get; set; }
         public CreateSubjectDto CreateSubjectDto { get; set; }
@@ -21,6 +22,8 @@ namespace Application.Features.Subjects.Commands.Create
         public bool ByPassCache { get; }
 
         public string? CacheGroupKey => "GetSubjects";
+
+        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin};
 
         public class CreateSubjectCommandHandler: IRequestHandler<CreateSubjectCommand, CreatedSubjectResponse>
         {
@@ -36,6 +39,7 @@ namespace Application.Features.Subjects.Commands.Create
             public async Task<CreatedSubjectResponse> Handle(CreateSubjectCommand request, CancellationToken cancellationToken)
             {
                 Subject subject = new() {Id = Guid.NewGuid(), CategoryId = request.CreateSubjectDto.CategoryId,
+                                                              SubjectImageFileId = request.CreateSubjectDto.SubjectImageFileId,
                                                               Title = request.CreateSubjectDto.Title,
                                                               Text = request.CreateSubjectDto.Text,
                                                               Summary = request.CreateSubjectDto.Summary,

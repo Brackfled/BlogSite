@@ -10,5 +10,8 @@ namespace Application.Services.Repositories
 {
     public interface IUserOperationClaimRepository:IAsyncRepository<UserOperationClaim, int>, IRepository<UserOperationClaim, int>
     {
+
+        Task<IList<OperationClaim>> GetUserOperationClaimsByUserId(int userId);
+
     }
 }

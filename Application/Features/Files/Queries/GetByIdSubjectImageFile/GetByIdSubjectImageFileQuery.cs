@@ -36,7 +36,6 @@ namespace Application.Features.Files.Queries.GetByIdSubjectImageFile
             {
                 SubjectImageFile? subjectImageFile = await _subjectImageFileRepository.GetAsync(
                         predicate: x => x.Id == request.Id,
-                        include: x=> x.Include(y => y.Subject),
                         withDeleted:true,
                         cancellationToken:cancellationToken
                     );

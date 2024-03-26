@@ -29,8 +29,7 @@ namespace Application.Features.Files.Queries.GetListSubjectImageFile
 
             public async Task<GetListResponse<GetListSubjectImageFileListItemDto>> Handle(GetListSubjectImageFileQuery request, CancellationToken cancellationToken)
             {
-                IPaginate<SubjectImageFile>? files = await _subjectImageFileRepository.GetListAsync(include:x => x.Include(y => y.Subject),
-                                                                                                    index:0,
+                IPaginate<SubjectImageFile>? files = await _subjectImageFileRepository.GetListAsync( index:0,
                                                                                                     size:1000,
                                                                                                     withDeleted:false,
                                                                                                     cancellationToken:cancellationToken

@@ -1,21 +1,18 @@
-﻿using System;
+﻿using Core.Security.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Users.Queries.GetListDetail
+namespace Application.Features.Users.Queries.GetByIdDetail
 {
-    public class GetListDetailUserListItemDto
+    public class GetByIdDetailResponse
     {
-
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public bool Status { get; set; }
-        public List<string> Roles { get; set; }
-       
-
+        public IList<OperationClaim> OperationClaims { get; set; }
     }
 }

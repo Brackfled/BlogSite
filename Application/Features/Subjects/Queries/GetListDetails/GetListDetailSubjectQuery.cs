@@ -38,7 +38,7 @@ namespace Application.Features.Subjects.Queries.GetListDetails
 
             public async Task<GetListResponse<GetListDetailSubjectListItemDto>> Handle(GetListDetailSubjectQuery request, CancellationToken cancellationToken)
             {
-                IPaginate<Subject>? subjects = await _subjectRepository.GetListAsync(include: s => s.Include(s => s.User).Include(s => s.Category),
+                IPaginate<Subject>? subjects = await _subjectRepository.GetListAsync(include: s => s.Include(s => s.User).Include(s => s.Category).Include(s => s.SubjectImageFile),
                                                                                      index:0,
                                                                                      size:1000,
                                                                                      withDeleted:false,

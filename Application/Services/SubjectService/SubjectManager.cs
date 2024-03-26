@@ -1,6 +1,9 @@
-﻿using Application.Features.Subjects.Rules;
+﻿using Application.Features.Subjects.Commands.Update;
+using Application.Features.Subjects.Constants;
+using Application.Features.Subjects.Rules;
 using Application.Features.Users.Rules;
 using Application.Services.Repositories;
+using Core.CrossCuttingConserns.Exceptions.Types;
 using Core.Persistance.Paging;
 using Core.Security.Entities;
 using Domain.Entities;
@@ -60,5 +63,7 @@ namespace Application.Services.SubjectService
             Subject updatedSubject = await _subjectRepository.UpdateAsync(subject);
             return updatedSubject;
         }
+
+        
     }
 }

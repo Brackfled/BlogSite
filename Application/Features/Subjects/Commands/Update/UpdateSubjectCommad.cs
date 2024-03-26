@@ -55,7 +55,8 @@ namespace Application.Features.Subjects.Commands.Update
             {
                 if (subject == null)
                     throw new BusinessException(SubjectMessages.SubjectForUpdateIsNull);
-
+                if (request.SubjectImageFileId != null)
+                    subject.SubjectImageFileId = request.SubjectImageFileId;
                 if (request.Title != null)
                     subject.Title = request.Title;
                 if (request.Text != null)

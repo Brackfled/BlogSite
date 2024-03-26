@@ -189,8 +189,8 @@ namespace Persistance.Migrations
                             Email = "oncellhsyn@outlook.com",
                             FirstName = "Hüseyin",
                             LastName = "ÖNCEL",
-                            PasswordHash = new byte[] { 99, 27, 216, 28, 172, 86, 146, 36, 129, 226, 179, 120, 171, 193, 15, 37, 143, 191, 41, 186, 227, 208, 185, 78, 251, 144, 244, 194, 93, 30, 210, 102, 125, 81, 187, 8, 114, 221, 12, 202, 112, 230, 172, 54, 162, 152, 53, 26, 201, 27, 141, 15, 30, 134, 144, 97, 188, 146, 67, 190, 18, 131, 182, 128 },
-                            PasswordSalt = new byte[] { 187, 242, 63, 253, 248, 243, 115, 79, 146, 121, 255, 25, 74, 61, 93, 80, 83, 56, 27, 18, 65, 105, 240, 135, 184, 232, 181, 25, 210, 152, 227, 122, 236, 220, 85, 27, 104, 238, 119, 153, 80, 200, 131, 169, 74, 105, 81, 251, 16, 46, 234, 211, 94, 185, 7, 229, 205, 10, 50, 187, 5, 85, 122, 99, 104, 8, 111, 227, 113, 47, 96, 96, 69, 176, 235, 7, 156, 60, 65, 241, 35, 60, 54, 47, 169, 139, 59, 232, 163, 225, 56, 226, 232, 80, 7, 227, 167, 254, 248, 106, 215, 37, 152, 32, 156, 167, 244, 198, 225, 235, 162, 193, 213, 43, 153, 225, 86, 202, 66, 229, 219, 253, 253, 207, 77, 149, 29, 12 },
+                            PasswordHash = new byte[] { 37, 221, 28, 127, 80, 219, 98, 247, 170, 3, 147, 223, 71, 98, 157, 87, 76, 90, 151, 71, 120, 82, 19, 29, 224, 228, 28, 156, 25, 64, 153, 194, 31, 60, 68, 178, 60, 76, 96, 231, 108, 242, 157, 230, 114, 23, 4, 161, 237, 232, 192, 249, 210, 167, 34, 196, 116, 189, 187, 132, 178, 139, 185, 95 },
+                            PasswordSalt = new byte[] { 128, 39, 36, 47, 14, 205, 121, 255, 229, 83, 188, 67, 222, 187, 79, 82, 137, 16, 24, 165, 204, 109, 246, 95, 143, 110, 10, 204, 13, 246, 152, 168, 172, 164, 154, 201, 115, 189, 225, 29, 3, 186, 127, 66, 108, 43, 125, 30, 8, 57, 78, 66, 142, 243, 217, 228, 115, 2, 174, 214, 111, 48, 161, 92, 220, 247, 12, 6, 251, 127, 221, 77, 53, 95, 54, 17, 127, 150, 67, 90, 142, 255, 160, 156, 81, 195, 96, 206, 243, 188, 65, 234, 239, 203, 248, 233, 30, 214, 179, 173, 207, 60, 243, 148, 240, 103, 155, 120, 18, 169, 40, 64, 67, 23, 242, 9, 237, 224, 51, 241, 32, 247, 41, 235, 236, 41, 53, 159 },
                             Status = true
                         });
                 });
@@ -302,7 +302,7 @@ namespace Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("Name");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -310,6 +310,9 @@ namespace Persistance.Migrations
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
+
+                    b.HasIndex(new[] { "Name" }, "UK_Categories_Name")
+                        .IsUnique();
 
                     b.ToTable("Categories", (string)null);
                 });
@@ -336,7 +339,7 @@ namespace Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("Name");
 
                     b.Property<string>("Text")
@@ -349,6 +352,9 @@ namespace Persistance.Migrations
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
+
+                    b.HasIndex(new[] { "Name" }, "UK_FeedBacks_Name")
+                        .IsUnique();
 
                     b.ToTable("FeedBacks", (string)null);
                 });
@@ -372,6 +378,10 @@ namespace Persistance.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DeletedDate");
 
+                    b.Property<Guid?>("SubjectImageFileId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("SubjectImageFileId");
+
                     b.Property<string>("Summary")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -384,7 +394,7 @@ namespace Persistance.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("Title");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -399,7 +409,12 @@ namespace Persistance.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("SubjectImageFileId");
+
                     b.HasIndex("UserId");
+
+                    b.HasIndex(new[] { "Title" }, "UK_Subjects_Title")
+                        .IsUnique();
 
                     b.ToTable("Subject", (string)null);
                 });
@@ -422,8 +437,6 @@ namespace Persistance.Migrations
 
                     b.Property<Guid?>("SubjectId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.HasIndex("SubjectId");
 
                     b.HasDiscriminator().HasValue("SubjectImageFile");
                 });
@@ -466,6 +479,10 @@ namespace Persistance.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.SubjectImageFile", "SubjectImageFile")
+                        .WithMany("Subjects")
+                        .HasForeignKey("SubjectImageFileId");
+
                     b.HasOne("Core.Security.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -473,6 +490,8 @@ namespace Persistance.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+
+                    b.Navigation("SubjectImageFile");
 
                     b.Navigation("User");
                 });
@@ -484,15 +503,6 @@ namespace Persistance.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.Entities.SubjectImageFile", b =>
-                {
-                    b.HasOne("Domain.Entities.Subject", "Subject")
-                        .WithMany()
-                        .HasForeignKey("SubjectId");
-
-                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("Core.Security.Entities.OperationClaim", b =>
@@ -508,6 +518,11 @@ namespace Persistance.Migrations
                 });
 
             modelBuilder.Entity("Domain.Entities.Category", b =>
+                {
+                    b.Navigation("Subjects");
+                });
+
+            modelBuilder.Entity("Domain.Entities.SubjectImageFile", b =>
                 {
                     b.Navigation("Subjects");
                 });

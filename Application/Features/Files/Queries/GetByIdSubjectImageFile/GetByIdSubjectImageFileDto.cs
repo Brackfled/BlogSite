@@ -10,7 +10,6 @@ namespace Application.Features.Files.Queries.GetByIdSubjectImageFile
     {
         public Guid Id { get; set; }
         public Guid SubjectId { get; set; }
-        public string SubjectTitle { get; set; }
         public string Name { get; set; }
         public string Path { get; set; }
         public string Url { get; set; }

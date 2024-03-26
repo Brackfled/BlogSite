@@ -34,7 +34,7 @@ namespace Application.Features.Subjects.Queries.GetListFromAuth
             public async Task<GetListResponse<GetListFromAuthSubjectListItemDto>> Handle(GetListFromAuthQuery request, CancellationToken cancellationToken)
             {
                 IPaginate<Subject>? subjects = await _subjectRepository.GetListAsync(predicate: s => s.UserId == request.UserId,
-                                                                     include: s => s.Include(s => s.User).Include(s => s.Category),
+                                                                     include: s => s.Include(s => s.User).Include(s => s.Category).Include(s => s.SubjectImageFile),
                                                                      index:0,
                                                                      size:1000,
                                                                      withDeleted:false,

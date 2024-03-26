@@ -3,6 +3,7 @@ using Application.Features.Users.Commands.Delete;
 using Application.Features.Users.Commands.Update;
 using Application.Features.Users.Commands.UpdateFromAuth;
 using Application.Features.Users.Queries.GetById;
+using Application.Features.Users.Queries.GetByIdDetail;
 using Application.Features.Users.Queries.GetList;
 using Application.Features.Users.Queries.GetListDetail;
 using Core.Application.Request;
@@ -73,6 +74,16 @@ namespace WebApi.Controllers
             GetListDetailUserQuery getListDetailUserQuery = new() { Id = userId };
             GetListDetailUserListItemDto dto = await Mediator.Send(getListDetailUserQuery);
             return Ok(dto);
+        }
+
+        [HttpGet("GetByIdDetail")]
+        public async Task<IActionResult> GetUserOperationClaimsByUserId()
+        {
+
+            GetByIdDetailQuery query = new() { UserId = getUserIdFromRequest() };
+            GetByIdDetailResponse response = await Mediator.Send(query);
+            return Ok(response);
+
         }
     }
 }

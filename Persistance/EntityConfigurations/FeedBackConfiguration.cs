@@ -23,6 +23,8 @@ namespace Persistance.EntityConfigurations
             builder.Property(bf => bf.UpdatedDate).HasColumnName("UpdatedDate");
             builder.Property(bf => bf.DeletedDate).HasColumnName("DeletedDate");
 
+            builder.HasIndex(indexExpression: p => p.Name, name: "UK_FeedBacks_Name").IsUnique();
+
             builder.HasQueryFilter(f => !f.DeletedDate.HasValue);
         }
     }

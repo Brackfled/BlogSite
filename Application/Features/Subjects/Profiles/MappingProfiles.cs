@@ -1,4 +1,5 @@
 ﻿using Application.Features.Subjects.Commands.Create;
+using Application.Features.Subjects.Commands.CreateWithSubjectImageFile;
 using Application.Features.Subjects.Commands.Delete;
 using Application.Features.Subjects.Commands.Update;
 using Application.Features.Subjects.Queries.GetById;
@@ -24,6 +25,8 @@ namespace Application.Features.Subjects.Profiles
             CreateMap<Subject, CreateSubjectCommand>().ReverseMap();
             CreateMap<Subject, CreatedSubjectResponse>().ReverseMap();
 
+            CreateMap<Subject, CreatedWithSubjectImageFileResponse>().ReverseMap();
+
             CreateMap<Subject, UpdateSubjectCommad>().ReverseMap();
             CreateMap<Subject, UpdatedSubjectResponse>().ReverseMap();
 
@@ -35,12 +38,16 @@ namespace Application.Features.Subjects.Profiles
                 .ForMember(destinationMember: s=> s.FirstName, memberOptions: opt => opt.MapFrom(s => s.User.FirstName))
                 .ForMember(destinationMember: s => s.LastName, memberOptions: opt => opt.MapFrom(s => s.User.LastName))
                 .ForMember(destinationMember: s => s.CategoryName, memberOptions: opt => opt.MapFrom(s => s.Category.Name))
+                .ForMember(destinationMember: s => s.SubjectImageFileName, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Name))
+                .ForMember(destinationMember: s => s.SubjectImageFıleUrl, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Url))
                 .ReverseMap();
 
             CreateMap<Subject, GetListFromAuthSubjectListItemDto>()
                 .ForMember(destinationMember: s => s.FirstName, memberOptions: opt => opt.MapFrom(s => s.User.FirstName))
                 .ForMember(destinationMember: s => s.LastName, memberOptions: opt => opt.MapFrom(s => s.User.LastName))
                 .ForMember(destinationMember: s => s.CategoryName, memberOptions: opt => opt.MapFrom(s => s.Category.Name))
+                .ForMember(destinationMember: s => s.SubjectImageFileName, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Name))
+                .ForMember(destinationMember: s => s.SubjectImageFıleUrl, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Url))
                 .ReverseMap();
             CreateMap<IPaginate<Subject>, GetListResponse<GetListFromAuthSubjectListItemDto>>().ReverseMap();
 
@@ -52,6 +59,8 @@ namespace Application.Features.Subjects.Profiles
                 .ForMember(destinationMember: s => s.LastName, memberOptions: opt => opt.MapFrom(s => s.User.LastName))
                 .ForMember(destinationMember: s => s.Email, memberOptions: opt => opt.MapFrom(s => s.User.Email))
                 .ForMember(destinationMember: s => s.CategoryName, memberOptions: opt => opt.MapFrom(s => s.Category.Name))
+                .ForMember(destinationMember: s => s.SubjectImageFileName, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Name))
+                .ForMember(destinationMember: s => s.SubjectImageFıleUrl, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Url))
                 .ReverseMap();
             CreateMap<IPaginate<Subject>, GetListResponse<GetListDetailSubjectListItemDto>>().ReverseMap();
         }

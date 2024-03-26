@@ -39,14 +39,10 @@ namespace Application.Features.Files.Profiles
 
             CreateMap<SubjectImageFile, CreatedSubjectImageFileResponse>().ReverseMap();
 
-            CreateMap<SubjectImageFile, GetListSubjectImageFileListItemDto>()
-                .ForMember(destinationMember: x => x.SubjectTitle, memberOptions: opt => opt.MapFrom(x => x.Subject.Title))
-                .ReverseMap();
+            CreateMap<SubjectImageFile, GetListSubjectImageFileListItemDto>().ReverseMap();
             CreateMap<IPaginate<SubjectImageFile>, GetListResponse<GetListSubjectImageFileListItemDto>>().ReverseMap();
 
-            CreateMap<SubjectImageFile, GetByIdSubjectImageFileDto>()
-                .ForMember(destinationMember: x => x.SubjectTitle, memberOptions: opt => opt.MapFrom(x => x.Subject.Title))
-                .ReverseMap();
+            CreateMap<SubjectImageFile, GetByIdSubjectImageFileDto>().ReverseMap();
         }
     }
 }

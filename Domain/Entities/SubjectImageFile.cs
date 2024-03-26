@@ -10,6 +10,7 @@ namespace Domain.Entities
     {
         public Guid? SubjectId { get; set; }
 
-        public virtual Subject? Subject { get; set; }
+        public ICollection<Subject>? Subjects { get; set; }
+
     }
 }

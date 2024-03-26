@@ -12,12 +12,14 @@ namespace Domain.Entities
     {
         public int UserId { get; set; }
         public int CategoryId { get; set; }
+        public Guid? SubjectImageFileId { get; set; }
         public string Title { get; set; }
         public string Text { get; set; }
         public string Summary { get; set; }
 
         public virtual User? User { get; set; }
         public virtual Category? Category { get; set; }
+        public virtual SubjectImageFile? SubjectImageFile { get; set; }
 
         public Subject()
         {
@@ -26,10 +28,11 @@ namespace Domain.Entities
             Summary = string.Empty;
         }
 
-        public Subject(Guid id, int userId, int categoryId, string title, string text, string summary):base(id)
+        public Subject(Guid id, int userId,Guid subjectImageFile, int categoryId, string title, string text, string summary):base(id)
         {
             UserId = userId;
             CategoryId = categoryId;
+            SubjectImageFileId = subjectImageFile;
             Title = title;
             Text = text;
             Summary = summary;

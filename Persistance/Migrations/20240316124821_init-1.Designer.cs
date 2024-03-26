@@ -12,8 +12,8 @@ using Persistance.Contexts;
 namespace Persistance.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20240307204254_mig-2")]
-    partial class mig2
+    [Migration("20240316124821_init-1")]
+    partial class init1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -192,8 +192,8 @@ namespace Persistance.Migrations
                             Email = "oncellhsyn@outlook.com",
                             FirstName = "Hüseyin",
                             LastName = "ÖNCEL",
-                            PasswordHash = new byte[] { 99, 27, 216, 28, 172, 86, 146, 36, 129, 226, 179, 120, 171, 193, 15, 37, 143, 191, 41, 186, 227, 208, 185, 78, 251, 144, 244, 194, 93, 30, 210, 102, 125, 81, 187, 8, 114, 221, 12, 202, 112, 230, 172, 54, 162, 152, 53, 26, 201, 27, 141, 15, 30, 134, 144, 97, 188, 146, 67, 190, 18, 131, 182, 128 },
-                            PasswordSalt = new byte[] { 187, 242, 63, 253, 248, 243, 115, 79, 146, 121, 255, 25, 74, 61, 93, 80, 83, 56, 27, 18, 65, 105, 240, 135, 184, 232, 181, 25, 210, 152, 227, 122, 236, 220, 85, 27, 104, 238, 119, 153, 80, 200, 131, 169, 74, 105, 81, 251, 16, 46, 234, 211, 94, 185, 7, 229, 205, 10, 50, 187, 5, 85, 122, 99, 104, 8, 111, 227, 113, 47, 96, 96, 69, 176, 235, 7, 156, 60, 65, 241, 35, 60, 54, 47, 169, 139, 59, 232, 163, 225, 56, 226, 232, 80, 7, 227, 167, 254, 248, 106, 215, 37, 152, 32, 156, 167, 244, 198, 225, 235, 162, 193, 213, 43, 153, 225, 86, 202, 66, 229, 219, 253, 253, 207, 77, 149, 29, 12 },
+                            PasswordHash = new byte[] { 222, 254, 20, 231, 136, 5, 90, 152, 25, 41, 235, 101, 68, 233, 67, 133, 184, 161, 26, 244, 143, 28, 2, 168, 208, 144, 123, 168, 51, 31, 179, 220, 15, 222, 134, 30, 111, 107, 251, 142, 87, 241, 24, 102, 185, 252, 148, 16, 135, 52, 98, 95, 59, 17, 219, 243, 154, 147, 50, 30, 186, 81, 155, 101 },
+                            PasswordSalt = new byte[] { 151, 119, 8, 98, 246, 185, 186, 92, 230, 122, 189, 129, 247, 69, 184, 125, 116, 118, 100, 114, 80, 199, 148, 215, 80, 239, 111, 114, 221, 247, 166, 78, 84, 44, 160, 10, 168, 60, 34, 186, 219, 235, 218, 166, 30, 243, 192, 0, 20, 182, 139, 209, 56, 134, 245, 54, 29, 154, 161, 118, 111, 53, 104, 46, 0, 168, 98, 27, 49, 205, 150, 199, 204, 170, 23, 34, 120, 40, 195, 136, 103, 89, 117, 75, 99, 86, 242, 240, 125, 48, 84, 46, 56, 158, 120, 155, 83, 156, 203, 189, 98, 92, 198, 20, 151, 136, 227, 106, 206, 123, 176, 164, 56, 108, 70, 64, 226, 46, 25, 248, 29, 112, 159, 34, 15, 11, 6, 18 },
                             Status = true
                         });
                 });
@@ -305,7 +305,7 @@ namespace Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("Name");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -313,6 +313,9 @@ namespace Persistance.Migrations
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
+
+                    b.HasIndex(new[] { "Name" }, "UK_Categories_Name")
+                        .IsUnique();
 
                     b.ToTable("Categories", (string)null);
                 });
@@ -339,7 +342,7 @@ namespace Persistance.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("Name");
 
                     b.Property<string>("Text")
@@ -352,6 +355,9 @@ namespace Persistance.Migrations
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
+
+                    b.HasIndex(new[] { "Name" }, "UK_FeedBacks_Name")
+                        .IsUnique();
 
                     b.ToTable("FeedBacks", (string)null);
                 });
@@ -375,6 +381,13 @@ namespace Persistance.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DeletedDate");
 
+                    b.Property<Guid?>("SubjectImageFileId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("SubjectImageFileId");
+
+                    b.Property<Guid?>("SubjectImageFileId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Summary")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -387,7 +400,7 @@ namespace Persistance.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("Title");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -402,7 +415,12 @@ namespace Persistance.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("SubjectImageFileId1");
+
                     b.HasIndex("UserId");
+
+                    b.HasIndex(new[] { "Title" }, "UK_Subjects_Title")
+                        .IsUnique();
 
                     b.ToTable("Subject", (string)null);
                 });
@@ -425,8 +443,6 @@ namespace Persistance.Migrations
 
                     b.Property<Guid?>("SubjectId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.HasIndex("SubjectId");
 
                     b.HasDiscriminator().HasValue("SubjectImageFile");
                 });
@@ -469,6 +485,10 @@ namespace Persistance.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.SubjectImageFile", "SubjectImageFile")
+                        .WithMany()
+                        .HasForeignKey("SubjectImageFileId1");
+
                     b.HasOne("Core.Security.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -476,6 +496,8 @@ namespace Persistance.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+
+                    b.Navigation("SubjectImageFile");
 
                     b.Navigation("User");
                 });
@@ -487,15 +509,6 @@ namespace Persistance.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.Entities.SubjectImageFile", b =>
-                {
-                    b.HasOne("Domain.Entities.Subject", "Subject")
-                        .WithMany()
-                        .HasForeignKey("SubjectId");
-
-                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("Core.Security.Entities.OperationClaim", b =>

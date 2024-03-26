@@ -1,4 +1,5 @@
 ﻿using Application.Features.Subjects.Commands.Create;
+using Application.Features.Subjects.Commands.CreateWithSubjectImageFile;
 using Application.Features.Subjects.Commands.Delete;
 using Application.Features.Subjects.Commands.Update;
 using Application.Features.Subjects.Queries.GetById;
@@ -22,6 +23,14 @@ namespace WebAPI.Controllers
         {            
             CreateSubjectCommand command = new () { CreateSubjectDto = createSubjectDto, UserId = getUserIdFromRequest() };
             CreatedSubjectResponse response = await Mediator.Send(command);
+            return Ok(response);
+        }
+
+        [HttpPost("AddSubjectWithImage")]
+        public async Task<IActionResult> AddWithSubjectImageFile([FromForm] CreateWithSubjectImageFileDto createWithSubjectImageFileDto,IFormFile formFile)
+        {
+            CreateWithSubjectImageFileCommand command = new() { UserId = getUserIdFromRequest(), CreateWithSubjectImageFileDto = createWithSubjectImageFileDto, FormFile= formFile };
+            CreatedWithSubjectImageFileResponse response = await Mediator.Send(command);
             return Ok(response);
         }
 
