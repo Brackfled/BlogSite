@@ -42,10 +42,11 @@ namespace WebAPI.Controllers
             return Ok(response);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete([FromBody] DeleteSubjectCommand deleteSubjectCommand)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            DeletedSubjectResponse response = await Mediator.Send(deleteSubjectCommand);
+            DeleteSubjectCommand command = new() { Id = id };
+            DeletedSubjectResponse response = await Mediator.Send(command);
             return Ok(response);
         }
 

@@ -2,6 +2,8 @@
 using Application.Services.Repositories;
 using Application.Services.UserOperationClaimService;
 using Application.Services.UserService;
+using AutoMapper;
+using Core.Application.Response;
 using Core.CrossCuttingConserns.Exceptions.Types;
 using Core.Persistance.Paging;
 using Core.Security.Entities;
@@ -15,63 +17,55 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Users.Queries.GetListDetail
 {
-    public class GetListDetailUserQuery : IRequest<GetListDetailUserListItemDto>
+    public class GetListDetailUserQuery : IRequest<GetListResponse<GetListDetailUserListItemDto>>
     {
-        public int Id { get; set; }
 
-        public class GetListDetailUserQueryHandler : IRequestHandler<GetListDetailUserQuery, GetListDetailUserListItemDto>
+        public class GetListDetailUserQueryHandler : IRequestHandler<GetListDetailUserQuery, GetListResponse<GetListDetailUserListItemDto>>
         {
             private readonly IUserService _userService;
             private readonly IUserOperationClaimRepository _userOperationClaimRepository;
             private readonly UserBusinessRules _userBusinessRules;
+            private IMapper _mapper;
 
-            public GetListDetailUserQueryHandler(IUserService userService, IUserOperationClaimRepository userOperationClaimRepository, UserBusinessRules userBusinessRules)
+            public GetListDetailUserQueryHandler(IUserService userService, IUserOperationClaimRepository userOperationClaimRepository, UserBusinessRules userBusinessRules, IMapper mapper)
             {
                 _userService = userService;
                 _userOperationClaimRepository = userOperationClaimRepository;
                 _userBusinessRules = userBusinessRules;
+                _mapper = mapper;
             }
 
-            public async Task<GetListDetailUserListItemDto> Handle(GetListDetailUserQuery request, CancellationToken cancellationToken)
+            public async Task<GetListResponse<GetListDetailUserListItemDto>> Handle(GetListDetailUserQuery request, CancellationToken cancellationToken)
             {
-                await _userBusinessRules.UserIdShouldExistWhenSelected(request.Id);
 
-                User? user = await _userService.GetAsync(
-                                                            predicate: u => u.Id == request.Id,
-                                                            include:u => u.Include(u => u.UserOperationClaims),
-                                                            withDeleted: false,
-                                                            cancellationToken:cancellationToken
-                                                            );
+                IPaginate<User> users = await _userService.GetListAsync(
+                        index: 0,
+                        size: 1000,
+                        withDeleted:false,
+                        cancellationToken:cancellationToken
+                    );
 
+                GetListResponse<GetListDetailUserListItemDto> response = new GetListResponse<GetListDetailUserListItemDto> { };
 
-                Paginate<UserOperationClaim> userOperationClaims = await _userOperationClaimRepository.GetListAsync(
-                                                                                                                predicate: uoc => uoc.UserId == user.Id,
-                                                                                                                include:uoc => uoc.Include(uoc => uoc.OperationClaim),
-                                                                                                                index: 0,
-                                                                                                                size:1000,
-                                                                                                                withDeleted: false,
-                                                                                                                cancellationToken:cancellationToken
-                                                                                                                );
-
-                List<string> roles = new();
-
-                
-                foreach (var ouc in userOperationClaims.Items)
+                foreach( User user in users.Items ) 
                 {
-                    roles.Add(ouc.OperationClaim.Name);
+
+                    IList<OperationClaim> operationClaims = await _userOperationClaimRepository.GetUserOperationClaimsByUserId( user.Id );
+
+                    GetListDetailUserListItemDto dto = new()
+                    {
+                        Id = user.Id,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        Email = user.Email,
+                        OperationClaims = operationClaims
+                    };
+
+                    response.Items.Add( dto );
                 }
+                
+                return response;
 
-                GetListDetailUserListItemDto dto = new()
-                {
-                    Id = request.Id,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Email = user.Email,
-                    Status = user.Status,
-                    Roles = roles
-                };
-
-                return dto;
 
             }
         }

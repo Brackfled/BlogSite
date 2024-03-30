@@ -68,11 +68,8 @@ namespace WebApi.Controllers
 
         [HttpGet("GetListDetail")]
         public async Task<IActionResult> GetListDetail()
-        {
-            int userId = getUserIdFromRequest();
-
-            GetListDetailUserQuery getListDetailUserQuery = new() { Id = userId };
-            GetListDetailUserListItemDto dto = await Mediator.Send(getListDetailUserQuery);
+        { 
+            GetListResponse<GetListDetailUserListItemDto> dto = await Mediator.Send(new GetListDetailUserQuery());
             return Ok(dto);
         }
 

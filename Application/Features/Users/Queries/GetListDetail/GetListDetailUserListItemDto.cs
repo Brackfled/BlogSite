@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Security.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,8 +15,8 @@ namespace Application.Features.Users.Queries.GetListDetail
         public string LastName { get; set; }
         public string Email { get; set; }
         public bool Status { get; set; }
-        public List<string> Roles { get; set; }
-       
+        public IList<OperationClaim> OperationClaims { get; set; }
+
 
     }
 }

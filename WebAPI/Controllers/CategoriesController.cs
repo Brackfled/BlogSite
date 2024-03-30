@@ -27,8 +27,8 @@ namespace WebAPI.Controllers
             return Ok(response);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete([FromBody] int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
             DeleteCategoryCommand command = new() { Id = id };
             DeletedCategoryResponse response = await Mediator.Send(command);

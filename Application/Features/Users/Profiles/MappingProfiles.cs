@@ -4,6 +4,7 @@ using Application.Features.Users.Commands.Update;
 using Application.Features.Users.Queries.GetById;
 using Application.Features.Users.Queries.GetByIdDetail;
 using Application.Features.Users.Queries.GetList;
+using Application.Features.Users.Queries.GetListDetail;
 using AutoMapper;
 using Core.Application.Response;
 using Core.Persistance.Paging;
