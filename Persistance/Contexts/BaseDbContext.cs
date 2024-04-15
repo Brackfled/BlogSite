@@ -1,6 +1,9 @@
-﻿using Core.Security.Entities;
+﻿
+using Core.Persistance.Repositories;
+using Core.Security.Entities;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;

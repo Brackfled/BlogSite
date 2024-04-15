@@ -176,7 +176,6 @@ namespace Persistance.Migrations
                     Title = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Summary = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SubjectImageFileId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -185,8 +184,8 @@ namespace Persistance.Migrations
                 {
                     table.PrimaryKey("PK_Subject", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Subject_BlogFiles_SubjectImageFileId1",
-                        column: x => x.SubjectImageFileId1,
+                        name: "FK_Subject_BlogFiles_SubjectImageFileId",
+                        column: x => x.SubjectImageFileId,
                         principalTable: "BlogFiles",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -211,7 +210,7 @@ namespace Persistance.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AuthenticatorType", "CreatedDate", "DeletedDate", "Email", "FirstName", "LastName", "PasswordHash", "PasswordSalt", "Status", "UpdatedDate" },
-                values: new object[] { 1, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "oncellhsyn@outlook.com", "Hüseyin", "ÖNCEL", new byte[] { 222, 254, 20, 231, 136, 5, 90, 152, 25, 41, 235, 101, 68, 233, 67, 133, 184, 161, 26, 244, 143, 28, 2, 168, 208, 144, 123, 168, 51, 31, 179, 220, 15, 222, 134, 30, 111, 107, 251, 142, 87, 241, 24, 102, 185, 252, 148, 16, 135, 52, 98, 95, 59, 17, 219, 243, 154, 147, 50, 30, 186, 81, 155, 101 }, new byte[] { 151, 119, 8, 98, 246, 185, 186, 92, 230, 122, 189, 129, 247, 69, 184, 125, 116, 118, 100, 114, 80, 199, 148, 215, 80, 239, 111, 114, 221, 247, 166, 78, 84, 44, 160, 10, 168, 60, 34, 186, 219, 235, 218, 166, 30, 243, 192, 0, 20, 182, 139, 209, 56, 134, 245, 54, 29, 154, 161, 118, 111, 53, 104, 46, 0, 168, 98, 27, 49, 205, 150, 199, 204, 170, 23, 34, 120, 40, 195, 136, 103, 89, 117, 75, 99, 86, 242, 240, 125, 48, 84, 46, 56, 158, 120, 155, 83, 156, 203, 189, 98, 92, 198, 20, 151, 136, 227, 106, 206, 123, 176, 164, 56, 108, 70, 64, 226, 46, 25, 248, 29, 112, 159, 34, 15, 11, 6, 18 }, true, null });
+                values: new object[] { 1, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "oncellhsyn@outlook.com", "Hüseyin", "ÖNCEL", new byte[] { 24, 129, 13, 21, 39, 19, 49, 242, 112, 237, 125, 51, 150, 97, 191, 29, 96, 46, 182, 88, 114, 2, 215, 12, 42, 64, 137, 10, 173, 254, 75, 136, 249, 45, 254, 163, 124, 80, 211, 122, 96, 255, 239, 148, 157, 102, 153, 154, 180, 235, 48, 112, 97, 205, 121, 146, 30, 108, 51, 48, 249, 187, 2, 74 }, new byte[] { 154, 44, 91, 115, 186, 94, 52, 215, 116, 82, 0, 104, 113, 18, 122, 245, 102, 230, 209, 71, 141, 59, 160, 8, 137, 174, 65, 114, 207, 241, 242, 207, 85, 63, 163, 94, 209, 229, 235, 164, 136, 155, 253, 106, 37, 104, 108, 160, 184, 73, 105, 83, 42, 160, 75, 47, 216, 5, 125, 88, 233, 151, 8, 61, 157, 16, 21, 253, 189, 128, 32, 10, 176, 177, 131, 8, 48, 72, 67, 165, 174, 110, 44, 137, 200, 249, 43, 50, 3, 192, 71, 34, 84, 101, 228, 53, 60, 27, 83, 182, 211, 84, 89, 154, 170, 240, 161, 176, 207, 237, 132, 220, 143, 32, 3, 26, 12, 100, 248, 18, 9, 188, 135, 232, 167, 116, 179, 36 }, true, null });
 
             migrationBuilder.InsertData(
                 table: "UserOperationClaims",
@@ -246,9 +245,9 @@ namespace Persistance.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subject_SubjectImageFileId1",
+                name: "IX_Subject_SubjectImageFileId",
                 table: "Subject",
-                column: "SubjectImageFileId1");
+                column: "SubjectImageFileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Subject_UserId",

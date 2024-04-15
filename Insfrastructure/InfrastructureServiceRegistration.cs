@@ -1,6 +1,7 @@
 ﻿
 using Infrastructure.Stroage;
 using Infrastructure.Stroage.Azure;
+using Insfrastructure.Mail;
 using Insfrastructure.Stroage.AWS;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -17,6 +18,7 @@ namespace Insfrastructure
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
         {
             services.AddScoped<IStroage, AwsStroage>();
+            services.AddScoped<IMailService, MailService>();
 
             return services;
         }

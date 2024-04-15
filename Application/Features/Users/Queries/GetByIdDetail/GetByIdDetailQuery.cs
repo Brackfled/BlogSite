@@ -5,6 +5,7 @@ using Application.Services.UserService;
 using AutoMapper;
 using Core.Security.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,13 +35,15 @@ namespace Application.Features.Users.Queries.GetByIdDetail
 
             public async Task<GetByIdDetailResponse> Handle(GetByIdDetailQuery request, CancellationToken cancellationToken)
             {
-                User? user = await _userService.GetAsync(predicate:u => u.Id == request.UserId, withDeleted:false);
+                User? user = await _userService.GetAsync(predicate:u => u.Id == request.UserId,
+                                                         withDeleted:false);
                 await _userBusinessRules.UserShouldBeExistsWhenSelected(user);
 
-                IList<OperationClaim>? operationClaims = await _userOperationClaimRepository.GetUserOperationClaimsByUserId(user.Id);
+                object roles = await _userOperationClaimRepository.GetUserOperationClaimsIdsByUserId(request.UserId);
+                
 
                 GetByIdDetailResponse response = _mapper.Map<GetByIdDetailResponse>(user);
-                response.OperationClaims = operationClaims;
+                response.RolesAndClaims = roles;
                 return response;
             }
         }

@@ -3,6 +3,7 @@ using Application.Services.CategoryService;
 using Application.Services.PPFileService;
 using Application.Services.SubjectImageFileService;
 using Application.Services.SubjectService;
+using Application.Services.UserOperationClaimService;
 using Application.Services.UserService;
 using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Caching;
@@ -47,6 +48,7 @@ namespace Application
 
             services.AddScoped<ISubjectService, SubjectManager>();
             services.AddScoped<ICategoryService, CategoryManager>();
+            services.AddScoped<IUserOperationClaimService, UserOperationClaimManager>();
 
             //services.AddScoped<IPPFileService, PPFileManager>();
             //services.AddScoped<ISubjectImageFileService, SubjectImageFileManager>();

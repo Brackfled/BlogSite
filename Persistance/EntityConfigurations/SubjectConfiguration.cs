@@ -32,7 +32,7 @@ namespace Persistance.EntityConfigurations
             builder.HasOne(s => s.Category);
             builder.HasOne(s => s.SubjectImageFile);
 
-            builder.HasQueryFilter(s => !s.DeletedDate.HasValue);
+            builder.HasQueryFilter(s => s.DeletedDate.HasValue);
 
             builder.HasBaseType((string)null!);
         }

@@ -11,18 +11,37 @@ using System.Threading.Tasks;
 
 namespace Persistence.Repositories
 {
-    public class UserOperationClaimRepository:EfRepositoryBase<UserOperationClaim, int, BaseDbContext>,IUserOperationClaimRepository
+    public class UserOperationClaimRepository:EfRepositoryBase<UserOperationClaim, int, BaseDbContext>, IUserOperationClaimRepository
     {
         public UserOperationClaimRepository(BaseDbContext context):base(context) { }
 
         public async Task<IList<OperationClaim>> GetUserOperationClaimsByUserId(int userId)
         {
+
             List<OperationClaim> operationClaims = await Query()
                 .AsNoTracking()
                 .Where(p => p.UserId.Equals(userId))
                 .Select(p => new OperationClaim { Id = p.OperationClaimId, Name = p.OperationClaim.Name })
                 .ToListAsync();
+
             return operationClaims;
+        }
+        
+        public async Task<IList<object>> GetUserOperationClaimsIdsByUserId(int userId)
+        {
+            var userOperationClaims = await Query()
+                .AsNoTracking()
+                .Include(uoc => uoc.OperationClaim)
+                .Where(uoc => uoc.UserId.Equals(userId))
+                .Select(uoc => new
+                {
+                    Id = uoc.OperationClaim.Id,
+                    Name = uoc.OperationClaim.Name,
+                    UserOperationClaimId = uoc.Id
+                })
+                .ToListAsync();
+
+            return userOperationClaims.Cast<object>().ToList();
         }
     }
 }

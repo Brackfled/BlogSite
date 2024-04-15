@@ -12,6 +12,6 @@ namespace Application.Services.Repositories
     {
 
         Task<IList<OperationClaim>> GetUserOperationClaimsByUserId(int userId);
-
+        Task<IList<object>> GetUserOperationClaimsIdsByUserId(int userId);
     }
 }
