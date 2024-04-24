@@ -36,7 +36,8 @@ namespace Application.Features.Users.Queries.GetByIdDetail
             public async Task<GetByIdDetailResponse> Handle(GetByIdDetailQuery request, CancellationToken cancellationToken)
             {
                 User? user = await _userService.GetAsync(predicate:u => u.Id == request.UserId,
-                                                         withDeleted:false);
+                                                         withDeleted:false,
+                                                         cancellationToken:cancellationToken);
                 await _userBusinessRules.UserShouldBeExistsWhenSelected(user);
 
                 object roles = await _userOperationClaimRepository.GetUserOperationClaimsIdsByUserId(request.UserId);

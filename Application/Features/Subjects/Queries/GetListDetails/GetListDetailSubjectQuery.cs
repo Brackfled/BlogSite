@@ -7,6 +7,7 @@ using Core.Persistance.Paging;
 using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
 using System;
 using System.Collections.Generic;
 using System.Linq;

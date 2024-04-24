@@ -56,6 +56,7 @@ namespace Insfrastructure.Stroage.AWS
                 BucketName = bucketName,
                 Key = newFileName,
                 InputStream = formFile.OpenReadStream(),
+                CannedACL = S3CannedACL.PublicRead
             };
            
             request.Metadata.Add("Content-Type", formFile.ContentType);

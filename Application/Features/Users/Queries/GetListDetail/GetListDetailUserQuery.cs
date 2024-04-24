@@ -50,7 +50,7 @@ namespace Application.Features.Users.Queries.GetListDetail
                 foreach( User user in users.Items ) 
                 {
 
-                    IList<OperationClaim> operationClaims = await _userOperationClaimRepository.GetUserOperationClaimsByUserId( user.Id );
+                    object roles = await _userOperationClaimRepository.GetUserOperationClaimsIdsByUserId(user.Id);
 
                     GetListDetailUserListItemDto dto = new()
                     {
@@ -58,7 +58,7 @@ namespace Application.Features.Users.Queries.GetListDetail
                         FirstName = user.FirstName,
                         LastName = user.LastName,
                         Email = user.Email,
-                        OperationClaims = operationClaims
+                        RolesAndClaims = roles
                     };
 
                     response.Items.Add( dto );

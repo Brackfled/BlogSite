@@ -41,7 +41,7 @@ namespace Application.Features.Files.Commands.CreatePPFile
             {
                 await _userBusinessRules.UserIdShouldExistWhenSelected(request.UserId);
                 await _fileBusinessRules.FileIsImageFile(request.FormFile.FileName.Substring(request.FormFile.FileName.LastIndexOf('.')));
-
+                await _fileBusinessRules.OneUserOnePPFile(request.UserId);
 
                 (string fileName,string bucketName, string fileUrl) uploadedFile =  await _stroage.UploadFileAsync(request.FormFile, request.BucketName);
 

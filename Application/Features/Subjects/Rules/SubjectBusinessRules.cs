@@ -30,7 +30,7 @@ namespace Application.Features.Subjects.Rules
 
         public async Task SubjectShouldBeExistsWhenSelected(Guid id)
         {
-            bool doesExists = await _subjectRepository.AnyAsync(s => s.Id == id);
+            bool doesExists = await _subjectRepository.AnyAsync(predicate: s => s.Id == id, withDeleted:true);
 
             if (doesExists == false)
                 throw new BusinessException(SubjectMessages.SubjectDoesExists);

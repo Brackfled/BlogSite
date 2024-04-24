@@ -13,6 +13,7 @@ using Application.Features.Files.Commands.CreateSubjectImageFile;
 using Application.Features.Files.Commands.DeleteSubjectImageFile;
 using Application.Features.Files.Queries.GetListSubjectImageFile;
 using Application.Features.Files.Queries.GetByIdSubjectImageFile;
+using Application.Features.Files.Queries.GetByUserIdPPFile;
 
 namespace WebAPI.Controllers
 {
@@ -90,6 +91,14 @@ namespace WebAPI.Controllers
             }).ToList();
 
             return Ok(objectDatas);
+        }
+
+        [HttpGet("GetByUserIdPPFile")]
+        public async Task<IActionResult> GetByUserIdPPFile()
+        {
+            GetByUserIdPPFileQuery query = new() { UserId = getUserIdFromRequest() };
+            GetByUserIdPPFileResponse response = await Mediator.Send(query);
+            return Ok(response);
         }
 
         // ------------------- PPFile ile ilgili endpointlerin sonu ---------------------

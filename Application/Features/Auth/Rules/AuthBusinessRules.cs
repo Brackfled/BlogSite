@@ -44,7 +44,7 @@ namespace Application.Features.Auth.Rules
         public Task UserShouldBeExistsWhenSelected(User? user)
         {
             if (user == null)
-                throw new BusinessException(AuthMessages.UserDontExists);
+                throw new AuthorizationException(AuthMessages.UserDontExists);
             return Task.CompletedTask;
         }
 

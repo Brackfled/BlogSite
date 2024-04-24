@@ -8,6 +8,7 @@ using Application.Services.Repositories;
 using Application.Services.SubjectService;
 using AutoMapper;
 using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Logging;
 using Core.CrossCuttingConserns.Exceptions.Types;
 using Domain.Entities;
 using Infrastructure.Stroage;
@@ -21,7 +22,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Subjects.Commands.CreateWithSubjectImageFile
 {
-    public class CreateWithSubjectImageFileCommand: IRequest<CreatedWithSubjectImageFileResponse>, ICacheRemoverRequest
+    public class CreateWithSubjectImageFileCommand: IRequest<CreatedWithSubjectImageFileResponse>, ICacheRemoverRequest, ILoggableRequest
     {
         public int UserId { get; set; }
         public CreateWithSubjectImageFileDto CreateWithSubjectImageFileDto { get; set; }

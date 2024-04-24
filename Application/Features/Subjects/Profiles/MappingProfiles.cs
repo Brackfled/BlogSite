@@ -4,6 +4,8 @@ using Application.Features.Subjects.Commands.Delete;
 using Application.Features.Subjects.Commands.Update;
 using Application.Features.Subjects.Queries.GetById;
 using Application.Features.Subjects.Queries.GetList;
+using Application.Features.Subjects.Queries.GetListByCategoryId;
+using Application.Features.Subjects.Queries.GetListByDynamic;
 using Application.Features.Subjects.Queries.GetListDetails;
 using Application.Features.Subjects.Queries.GetListFromAuth;
 using AutoMapper;
@@ -39,7 +41,7 @@ namespace Application.Features.Subjects.Profiles
                 .ForMember(destinationMember: s => s.LastName, memberOptions: opt => opt.MapFrom(s => s.User.LastName))
                 .ForMember(destinationMember: s => s.CategoryName, memberOptions: opt => opt.MapFrom(s => s.Category.Name))
                 .ForMember(destinationMember: s => s.SubjectImageFileName, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Name))
-                .ForMember(destinationMember: s => s.SubjectImageFıleUrl, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Url))
+                .ForMember(destinationMember: s => s.SubjectImageFileUrl, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Url))
                 .ReverseMap();
 
             CreateMap<Subject, GetListFromAuthSubjectListItemDto>()
@@ -47,7 +49,7 @@ namespace Application.Features.Subjects.Profiles
                 .ForMember(destinationMember: s => s.LastName, memberOptions: opt => opt.MapFrom(s => s.User.LastName))
                 .ForMember(destinationMember: s => s.CategoryName, memberOptions: opt => opt.MapFrom(s => s.Category.Name))
                 .ForMember(destinationMember: s => s.SubjectImageFileName, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Name))
-                .ForMember(destinationMember: s => s.SubjectImageFıleUrl, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Url))
+                .ForMember(destinationMember: s => s.SubjectImageFileUrl, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Url))
                 .ReverseMap();
             CreateMap<IPaginate<Subject>, GetListResponse<GetListFromAuthSubjectListItemDto>>().ReverseMap();
 
@@ -60,9 +62,29 @@ namespace Application.Features.Subjects.Profiles
                 .ForMember(destinationMember: s => s.Email, memberOptions: opt => opt.MapFrom(s => s.User.Email))
                 .ForMember(destinationMember: s => s.CategoryName, memberOptions: opt => opt.MapFrom(s => s.Category.Name))
                 .ForMember(destinationMember: s => s.SubjectImageFileName, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Name))
-                .ForMember(destinationMember: s => s.SubjectImageFıleUrl, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Url))
+                .ForMember(destinationMember: s => s.SubjectImageFileUrl, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Url))
                 .ReverseMap();
             CreateMap<IPaginate<Subject>, GetListResponse<GetListDetailSubjectListItemDto>>().ReverseMap();
+
+            CreateMap<IPaginate<Subject>, GetListResponse<GetListByDynamicSubjectListItemDto>>().ReverseMap();
+            CreateMap<Subject, GetListByDynamicSubjectListItemDto>()
+                .ForMember(destinationMember: s => s.FirstName, memberOptions: opt => opt.MapFrom(s => s.User.FirstName))
+                .ForMember(destinationMember: s => s.LastName, memberOptions: opt => opt.MapFrom(s => s.User.LastName))
+                .ForMember(destinationMember: s => s.Email, memberOptions: opt => opt.MapFrom(s => s.User.Email))
+                .ForMember(destinationMember: s => s.CategoryName, memberOptions: opt => opt.MapFrom(s => s.Category.Name))
+                .ForMember(destinationMember: s => s.SubjectImageFileName, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Name))
+                .ForMember(destinationMember: s => s.SubjectImageFileUrl, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Url))
+                .ReverseMap();
+
+            CreateMap<IPaginate<Subject>, GetListResponse<GetListByCategoryIdSubjectListItemDto>>().ReverseMap();
+            CreateMap<Subject, GetListByCategoryIdSubjectListItemDto>()
+                .ForMember(destinationMember: s => s.FirstName, memberOptions: opt => opt.MapFrom(s => s.User.FirstName))
+                .ForMember(destinationMember: s => s.LastName, memberOptions: opt => opt.MapFrom(s => s.User.LastName))
+                .ForMember(destinationMember: s => s.Email, memberOptions: opt => opt.MapFrom(s => s.User.Email))
+                .ForMember(destinationMember: s => s.CategoryName, memberOptions: opt => opt.MapFrom(s => s.Category.Name))
+                .ForMember(destinationMember: s => s.SubjectImageFileName, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Name))
+                .ForMember(destinationMember: s => s.SubjectImageFileUrl, memberOptions: opt => opt.MapFrom(s => s.SubjectImageFile.Url))
+                .ReverseMap();
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Application.Features.Subjects.Queries.GetById
                 await _subjectBusinessRules.SubjectShouldBeExistsWhenSelected(request.Id);
                 Subject? subject = await _subjectRepository.GetAsync(predicate: s=> s.Id == request.Id,
                                                                      include: s => s.Include(s => s.User).Include(s => s.Category).Include(s => s.SubjectImageFile),
-                                                                     withDeleted:false,
+                                                                     withDeleted:true,
                                                                      cancellationToken:cancellationToken
                                                                      );
 

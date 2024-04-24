@@ -25,7 +25,7 @@ namespace Application.Features.Users.Rules
         public Task UserShouldBeExistsWhenSelected(User? user)
         {
             if (user == null)
-                throw new BusinessException(AuthMessages.UserDontExists);
+                throw new AuthorizationException(AuthMessages.UserDontExists);
             return Task.CompletedTask;
         }
 
@@ -33,7 +33,7 @@ namespace Application.Features.Users.Rules
         {
             User? result = await _userRepository.GetAsync(predicate: b => b.Id == id, enableTracking: false);
             if (result == null)
-                throw new BusinessException(AuthMessages.UserDontExists);
+                throw new AuthorizationException(AuthMessages.UserDontExists);
         }
 
         public async Task UserEmailShouldNotExistsWhenInsert(string email)

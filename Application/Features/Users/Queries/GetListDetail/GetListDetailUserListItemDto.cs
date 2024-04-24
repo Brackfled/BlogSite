@@ -15,7 +15,7 @@ namespace Application.Features.Users.Queries.GetListDetail
         public string LastName { get; set; }
         public string Email { get; set; }
         public bool Status { get; set; }
-        public IList<OperationClaim> OperationClaims { get; set; }
+        public object RolesAndClaims { get; set; }
 
 
     }

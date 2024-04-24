@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Subjects.Queries.GetListFromAuth
+namespace Application.Features.Subjects.Queries.GetListByCategoryId
 {
-    public class GetListFromAuthSubjectListItemDto
+    public class GetListByCategoryIdSubjectListItemDto
     {
         public Guid Id { get; set; }
         public int UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Email { get; set; }
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public Guid? SubjectImageFileId { get; set; }
@@ -24,22 +25,24 @@ namespace Application.Features.Subjects.Queries.GetListFromAuth
         public DateTime? UpdatedDate { get; set; }
         public DateTime? DeletedDate { get; set; }
 
-        public GetListFromAuthSubjectListItemDto()
+        public GetListByCategoryIdSubjectListItemDto()
         {
             FirstName = string.Empty;
             LastName = string.Empty;
+            Email = string.Empty;
             CategoryName = string.Empty;
             Title = string.Empty;
             Text = string.Empty;
             Summary = string.Empty;
         }
 
-        public GetListFromAuthSubjectListItemDto(Guid ıd, int userId, string firstName, string lastName, int categoryId, string categoryName, string title, string text, string summary, DateTime createdDate, DateTime? updatedDate, DateTime? deletedDate)
+        public GetListByCategoryIdSubjectListItemDto(Guid ıd, int userId, string firstName, string lastName, string email, int categoryId, string categoryName, string title, string text, string summary, DateTime createdDate, DateTime? updatedDate, DateTime? deletedDate)
         {
             Id = ıd;
             UserId = userId;
             FirstName = firstName;
             LastName = lastName;
+            Email = email;
             CategoryId = categoryId;
             CategoryName = categoryName;
             Title = title;
@@ -49,6 +52,5 @@ namespace Application.Features.Subjects.Queries.GetListFromAuth
             UpdatedDate = updatedDate;
             DeletedDate = deletedDate;
         }
-
     }
 }

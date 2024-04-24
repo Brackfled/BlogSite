@@ -36,7 +36,7 @@ namespace Persistance.Contexts
        : base(dbContextOptions)
         {
             Configuration = configuration;
-            Database.EnsureCreated();
+            Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,6 +1,7 @@
 ﻿
 using Application.Features.Files.Commands.CreateSubjectImageFile;
 using Application.Features.Files.Queries.GetByIdSubjectImageFile;
+using Application.Features.Files.Queries.GetByUserIdPPFile;
 using Application.Features.Files.Queries.GetListPPFile;
 using Application.Features.Files.Queries.GetListSubjectImageFile;
 using AutoMapper;
@@ -33,6 +34,8 @@ namespace Application.Features.Files.Profiles
                 .ForMember(destinationMember: x => x.UserLastName, memberOptions: opt => opt.MapFrom(x => x.User.LastName))
                 .ForMember(destinationMember: x => x.UserEmail, memberOptions: opt => opt.MapFrom(x => x.User.Email))
                 .ReverseMap();
+
+            CreateMap<PPFile, GetByUserIdPPFileResponse>().ReverseMap();
 
 
             // SubjectImageFile ile ilgi Mappingler
