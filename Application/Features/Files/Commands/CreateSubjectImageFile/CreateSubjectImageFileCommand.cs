@@ -5,6 +5,7 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Logging;
 using Domain.Entities;
 using Infrastructure.Stroage;
 using MediatR;
@@ -17,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Files.Commands.CreateSubjectImageFile
 {
-    public class CreateSubjectImageFileCommand: IRequest<CreatedSubjectImageFileResponse>, ISecuredRequest, ICacheRemoverRequest
+    public class CreateSubjectImageFileCommand: IRequest<CreatedSubjectImageFileResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest
     {
         public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin, Core.Security.Constants.GeneralOperationClaims.Author };
 

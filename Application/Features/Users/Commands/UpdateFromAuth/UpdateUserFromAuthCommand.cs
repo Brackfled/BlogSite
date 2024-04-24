@@ -2,6 +2,7 @@
 using Application.Services.AuthService;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Logging;
 using Core.Security.Entities;
 using Core.Security.Hashing;
 using MediatR;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Users.Commands.UpdateFromAuth
 {
-    public class UpdateUserFromAuthCommand : IRequest<UpdatedUserFromAuthResponse>
+    public class UpdateUserFromAuthCommand : IRequest<UpdatedUserFromAuthResponse>, ILoggableRequest
     {
 
         public int Id { get; set; }

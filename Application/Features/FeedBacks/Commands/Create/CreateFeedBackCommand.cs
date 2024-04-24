@@ -1,6 +1,7 @@
 ﻿using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Logging;
 using Domain.Entities;
 using MediatR;
 using System;

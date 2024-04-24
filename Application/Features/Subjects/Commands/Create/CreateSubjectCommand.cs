@@ -2,6 +2,7 @@
 using AutoMapper;
 using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Logging;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Subjects.Commands.Create
 {
-    public class CreateSubjectCommand: IRequest<CreatedSubjectResponse>, ICacheRemoverRequest, ISecuredRequest
+    public class CreateSubjectCommand: IRequest<CreatedSubjectResponse>, ICacheRemoverRequest, ISecuredRequest, ILoggableRequest
     {
         public int UserId { get; set; }
         public CreateSubjectDto CreateSubjectDto { get; set; }

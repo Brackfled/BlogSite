@@ -2,6 +2,7 @@
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Pipelines.Authorization;
+using Core.Application.Pipelines.Logging;
 using Core.Security.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.OperationClaims.Commands.Delete
 {
-    public class DeleteOperationClaimCommand : IRequest<DeletedOperationClaimResponse>, ISecuredRequest
+    public class DeleteOperationClaimCommand : IRequest<DeletedOperationClaimResponse>, ISecuredRequest, ILoggableRequest
     {
         public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin };
 

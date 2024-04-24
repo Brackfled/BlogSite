@@ -2,6 +2,7 @@
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Logging;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.FeedBacks.Commands.Delete
 {
-    public class DeleteFeedBackCommand: IRequest<DeletedFeedBackResponse>, ICacheRemoverRequest
+    public class DeleteFeedBackCommand: IRequest<DeletedFeedBackResponse>, ICacheRemoverRequest, ILoggableRequest
     {
         public Guid Id { get; set; }
 

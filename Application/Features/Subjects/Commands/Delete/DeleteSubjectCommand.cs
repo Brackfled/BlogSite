@@ -2,6 +2,7 @@
 using AutoMapper;
 using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Logging;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Subjects.Commands.Delete
 {
-    public class DeleteSubjectCommand: IRequest<DeletedSubjectResponse>, ICacheRemoverRequest, ISecuredRequest
+    public class DeleteSubjectCommand: IRequest<DeletedSubjectResponse>, ICacheRemoverRequest, ISecuredRequest, ILoggableRequest
     {
         public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin, Core.Security.Constants.GeneralOperationClaims.Author };
 

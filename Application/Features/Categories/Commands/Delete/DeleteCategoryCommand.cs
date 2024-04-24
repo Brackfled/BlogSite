@@ -2,6 +2,7 @@
 using AutoMapper;
 using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Logging;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Categories.Commands.Delete
 {
-    public class DeleteCategoryCommand: IRequest<DeletedCategoryResponse>, ISecuredRequest, ICacheRemoverRequest
+    public class DeleteCategoryCommand: IRequest<DeletedCategoryResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest
     {
         public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin };
 

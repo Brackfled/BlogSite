@@ -1,6 +1,7 @@
 ﻿using Application.Features.Users.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Logging;
 using Core.Security.Entities;
 using Core.Security.Hashing;
 using MediatR;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Users.Commands.Update
 {
-    public class UpdateUserCommand : IRequest<UpdatedUserResponse>
+    public class UpdateUserCommand : IRequest<UpdatedUserResponse>, ILoggableRequest
     {
 
         public int Id { get; set; }

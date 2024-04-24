@@ -2,6 +2,7 @@
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Pipelines.Authorization;
+using Core.Application.Pipelines.Logging;
 using Core.Security.Entities;
 using MediatR;
 using System;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UserOperationClaims.Commands.Create
 {
-    public class CreateUserOperationClaimCommand : IRequest<CreatedUserOperationClaimResponse>, ISecuredRequest
+    public class CreateUserOperationClaimCommand : IRequest<CreatedUserOperationClaimResponse>, ISecuredRequest, ILoggableRequest
     {
 
         public int UserId { get; set; }

@@ -4,6 +4,7 @@ using Application.Features.Users.Rules;
 using Application.Services.PPFileService;
 using Application.Services.Repositories;
 using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Logging;
 using Domain.Entities;
 using Infrastructure.Stroage;
 using Insfrastructure.Stroage.AWS;
@@ -17,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Files.Commands.CreatePPFile
 {
-    public class CreatePPFileCommand: IRequest<CreatedPPFileResponse>, ICacheRemoverRequest
+    public class CreatePPFileCommand: IRequest<CreatedPPFileResponse>, ICacheRemoverRequest, ILoggableRequest
     {
         public int UserId { get; set; }
         public string BucketName { get; set; }

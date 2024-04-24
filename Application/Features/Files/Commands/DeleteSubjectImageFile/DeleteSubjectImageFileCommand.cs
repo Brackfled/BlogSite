@@ -3,6 +3,7 @@ using Application.Features.Files.Constants;
 using Application.Services.Repositories;
 using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Logging;
 using Core.CrossCuttingConserns.Exceptions.Types;
 using Domain.Entities;
 using Infrastructure.Stroage;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Files.Commands.DeleteSubjectImageFile
 {
-    public class DeleteSubjectImageFileCommand: IRequest<DeletedSubjectImageFileResponse>, ISecuredRequest, ICacheRemoverRequest
+    public class DeleteSubjectImageFileCommand: IRequest<DeletedSubjectImageFileResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest
     {
         public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin };
 

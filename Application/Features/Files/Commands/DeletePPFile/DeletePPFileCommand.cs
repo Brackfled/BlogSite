@@ -4,6 +4,7 @@ using Application.Features.Files.Rules;
 using Application.Services.Repositories;
 using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Logging;
 using Core.CrossCuttingConserns.Exceptions.Types;
 using Domain.Entities;
 using Infrastructure.Stroage;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Files.Commands.DeletePPFile
 {
-    public class DeletePPFileCommand: IRequest<DeletedPPFileResponse>, ISecuredRequest, ICacheRemoverRequest
+    public class DeletePPFileCommand: IRequest<DeletedPPFileResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest
     {
         public Guid Id { get; set; }
 

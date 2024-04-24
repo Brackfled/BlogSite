@@ -4,6 +4,7 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Logging;
 using Core.CrossCuttingConserns.Exceptions.Types;
 using Domain.Entities;
 using MediatR;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Subjects.Commands.Update
 {
-    public class UpdateSubjectCommad: IRequest<UpdatedSubjectResponse>, ICacheRemoverRequest, ISecuredRequest
+    public class UpdateSubjectCommad: IRequest<UpdatedSubjectResponse>, ICacheRemoverRequest, ISecuredRequest, ILoggableRequest
     {
         public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin, Core.Security.Constants.GeneralOperationClaims.Author };
 
