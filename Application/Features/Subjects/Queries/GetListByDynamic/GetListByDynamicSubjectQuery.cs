@@ -1,6 +1,7 @@
 ﻿using Amazon.Runtime.Internal;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.Application.Request;
 using Core.Application.Response;
 using Core.Persistance.Dynamic;
@@ -16,8 +17,9 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Subjects.Queries.GetListByDynamic
 {
-    public class GetListByDynamicSubjectQuery: IRequest<GetListResponse<GetListByDynamicSubjectListItemDto>>
+    public class GetListByDynamicSubjectQuery: IRequest<GetListResponse<GetListByDynamicSubjectListItemDto>>, ISecuredRequest
     {
+        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin };
 
         public PageRequest PageRequest { get; set; }
         public DynamicQuery DynamicQuery { get; set; }

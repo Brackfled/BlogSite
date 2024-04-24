@@ -1,6 +1,7 @@
 ﻿using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Pipelines.Authorization;
+using Core.Application.Pipelines.Caching;
 using Core.Application.Pipelines.Logging;
 using Domain.Entities;
 using MediatR;
@@ -12,11 +13,17 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Categories.Commands.Create
 {
-    public class CreateCategoryCommand: IRequest<CreatedCategoryResponse>, ISecuredRequest, ILoggableRequest
+    public class CreateCategoryCommand: IRequest<CreatedCategoryResponse>, ISecuredRequest, ILoggableRequest, ICacheRemoverRequest
     {
         public string Name { get; set; }
 
         public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin};
+
+        public string? CacheKey => "";
+
+        public bool ByPassCache { get; }
+
+        public string? CacheGroupKey => "GetCategories";
 
         public class CreateCategoryCommandHandler: IRequestHandler<CreateCategoryCommand, CreatedCategoryResponse> 
         {

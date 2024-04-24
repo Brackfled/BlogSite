@@ -1,6 +1,8 @@
 ﻿using Amazon.Runtime.Internal;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
+using Core.Application.Pipelines.Caching;
 using Core.Application.Response;
 using Core.Persistance.Paging;
 using Domain.Entities;
@@ -14,8 +16,18 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Files.Queries.GetListSubjectImageFile
 {
-    public class GetListSubjectImageFileQuery: IRequest<GetListResponse<GetListSubjectImageFileListItemDto>>
+    public class GetListSubjectImageFileQuery: IRequest<GetListResponse<GetListSubjectImageFileListItemDto>>, ISecuredRequest, ICachableRequest
     {
+        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin };
+
+        public string CacheKey => "GetListSubjectImageFile";
+
+        public bool ByPassCache { get; }
+
+        public string? CacheGroupKey => "GetListSubjectImageFiles";
+
+        public TimeSpan? SlidingExpiration { get; }
+
         public class GetListSubjectImageFileQueryHandler: IRequestHandler<GetListSubjectImageFileQuery, GetListResponse<GetListSubjectImageFileListItemDto>>
         {
             private readonly ISubjectImageFileRepository _subjectImageFileRepository;

@@ -7,6 +7,7 @@ using Application.Features.Subjects.Rules;
 using Application.Services.Repositories;
 using Application.Services.SubjectService;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Caching;
 using Core.Application.Pipelines.Logging;
 using Core.CrossCuttingConserns.Exceptions.Types;
@@ -22,8 +23,9 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Subjects.Commands.CreateWithSubjectImageFile
 {
-    public class CreateWithSubjectImageFileCommand: IRequest<CreatedWithSubjectImageFileResponse>, ICacheRemoverRequest, ILoggableRequest
+    public class CreateWithSubjectImageFileCommand: IRequest<CreatedWithSubjectImageFileResponse>, ICacheRemoverRequest, ILoggableRequest, ISecuredRequest
     {
+        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin, Core.Security.Constants.GeneralOperationClaims.Author};
         public int UserId { get; set; }
         public CreateWithSubjectImageFileDto CreateWithSubjectImageFileDto { get; set; }
         public IFormFile FormFile { get; set; }

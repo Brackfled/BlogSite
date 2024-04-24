@@ -3,6 +3,8 @@ using Application.Features.Files.Rules;
 using Application.Features.Subjects.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
+using Core.Application.Pipelines.Caching;
 using Domain.Entities;
 using Infrastructure.Stroage;
 using MediatR;
@@ -15,10 +17,18 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Files.Commands.CreateSubjectImageFile
 {
-    public class CreateSubjectImageFileCommand: IRequest<CreatedSubjectImageFileResponse>
+    public class CreateSubjectImageFileCommand: IRequest<CreatedSubjectImageFileResponse>, ISecuredRequest, ICacheRemoverRequest
     {
+        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin, Core.Security.Constants.GeneralOperationClaims.Author };
+
         public CreateSubjectImageFileDto CreateSubjectImageFileDto { get; set; }
         public IFormFile FormFile { get; set; }
+
+        public string? CacheKey => "";
+
+        public bool ByPassCache { get; }
+
+        public string? CacheGroupKey => "GetListSubjectImageFiles";
 
         public class CreateSubjectImageFileCommandHandler: IRequestHandler<CreateSubjectImageFileCommand, CreatedSubjectImageFileResponse>
         {

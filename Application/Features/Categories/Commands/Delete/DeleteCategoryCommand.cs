@@ -1,5 +1,7 @@
 ﻿using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
+using Core.Application.Pipelines.Caching;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -10,9 +12,17 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Categories.Commands.Delete
 {
-    public class DeleteCategoryCommand: IRequest<DeletedCategoryResponse>
+    public class DeleteCategoryCommand: IRequest<DeletedCategoryResponse>, ISecuredRequest, ICacheRemoverRequest
     {
+        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin };
+
         public int Id { get; set; }
+
+        public string? CacheKey => "";
+
+        public bool ByPassCache { get;}
+
+        public string? CacheGroupKey => "GetCategories";
 
         public class DeleteCategoryCommandHandler: IRequestHandler<DeleteCategoryCommand, DeletedCategoryResponse> 
         {

@@ -1,6 +1,8 @@
 ﻿using Amazon.Runtime.Internal;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
+using Core.Application.Pipelines.Caching;
 using Core.Application.Response;
 using Core.Persistance.Paging;
 using Domain.Entities;
@@ -15,8 +17,18 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Files.Queries.GetListPPFile
 {
-    public class GetListPPFileQuery: IRequest<GetListResponse<GetListPPFileListItemDto>>
+    public class GetListPPFileQuery: IRequest<GetListResponse<GetListPPFileListItemDto>>, ISecuredRequest, ICachableRequest
     {
+        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin };
+
+        public string CacheKey => $"GetListPPFile";
+
+        public bool ByPassCache { get; }
+
+        public string? CacheGroupKey => "GetListPPFiles";
+
+        public TimeSpan? SlidingExpiration { get; }
+
         public class GetListPPFileQueryHandler: IRequestHandler<GetListPPFileQuery, GetListResponse<GetListPPFileListItemDto>>
         {
             private readonly IPPFileRepository _pPFileRepository;

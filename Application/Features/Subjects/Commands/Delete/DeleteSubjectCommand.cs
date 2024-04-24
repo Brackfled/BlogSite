@@ -1,5 +1,6 @@
 ﻿using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Caching;
 using Domain.Entities;
 using MediatR;
@@ -11,8 +12,10 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Subjects.Commands.Delete
 {
-    public class DeleteSubjectCommand: IRequest<DeletedSubjectResponse>, ICacheRemoverRequest
+    public class DeleteSubjectCommand: IRequest<DeletedSubjectResponse>, ICacheRemoverRequest, ISecuredRequest
     {
+        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin, Core.Security.Constants.GeneralOperationClaims.Author };
+
         public Guid Id { get; set; }
 
         public string? CacheKey => "";

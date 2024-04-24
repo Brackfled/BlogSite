@@ -3,6 +3,7 @@ using Application.Services.Repositories;
 using Application.Services.UserOperationClaimService;
 using Application.Services.UserService;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.Application.Response;
 using Core.CrossCuttingConserns.Exceptions.Types;
 using Core.Persistance.Paging;
@@ -17,8 +18,10 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Users.Queries.GetListDetail
 {
-    public class GetListDetailUserQuery : IRequest<GetListResponse<GetListDetailUserListItemDto>>
+    public class GetListDetailUserQuery : IRequest<GetListResponse<GetListDetailUserListItemDto>>, ISecuredRequest
     {
+        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin };
+
 
         public class GetListDetailUserQueryHandler : IRequestHandler<GetListDetailUserQuery, GetListResponse<GetListDetailUserListItemDto>>
         {

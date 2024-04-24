@@ -1,6 +1,7 @@
 ﻿using Application.Features.Subjects.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Caching;
 using Core.Application.Response;
 using Core.Persistance.Paging;
 using Domain.Entities;
@@ -14,9 +15,17 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Subjects.Queries.GetListFromAuth
 {
-    public class GetListFromAuthQuery: IRequest<GetListResponse<GetListFromAuthSubjectListItemDto>>
+    public class GetListFromAuthQuery: IRequest<GetListResponse<GetListFromAuthSubjectListItemDto>>, ICachableRequest
     {
         public int UserId { get; set; }
+
+        public string CacheKey => $"GetListFromAuth({UserId})";
+
+        public bool ByPassCache { get; }
+
+        public string? CacheGroupKey => "GetListSubjects";
+
+        public TimeSpan? SlidingExpiration { get; }
 
         public class GetListFromAuthQueryHandler: IRequestHandler<GetListFromAuthQuery, GetListResponse<GetListFromAuthSubjectListItemDto>>
         {

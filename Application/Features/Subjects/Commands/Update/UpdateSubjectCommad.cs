@@ -2,6 +2,7 @@
 using Application.Features.Subjects.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Caching;
 using Core.CrossCuttingConserns.Exceptions.Types;
 using Domain.Entities;
@@ -14,8 +15,10 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Subjects.Commands.Update
 {
-    public class UpdateSubjectCommad: IRequest<UpdatedSubjectResponse>, ICacheRemoverRequest
+    public class UpdateSubjectCommad: IRequest<UpdatedSubjectResponse>, ICacheRemoverRequest, ISecuredRequest
     {
+        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin, Core.Security.Constants.GeneralOperationClaims.Author };
+
         public int UserId { get; set; }
 
         public string? CacheKey => "";

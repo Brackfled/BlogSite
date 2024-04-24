@@ -13,9 +13,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.OperationClaims.Commands.Create
 {
-    public class CreateOperationClaimCommand : IRequest<CreatedOperationClaimResponse>
+    public class CreateOperationClaimCommand : IRequest<CreatedOperationClaimResponse>, ISecuredRequest
     {
         public string Name { get; set; }
+
+        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin}; 
 
         public CreateOperationClaimCommand()
         {

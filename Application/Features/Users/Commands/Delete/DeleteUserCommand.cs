@@ -1,6 +1,7 @@
 ﻿using Application.Features.Users.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.Security.Entities;
 using MediatR;
 using System;
@@ -11,8 +12,10 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Users.Commands.Delete
 {
-    public class DeleteUserCommand: IRequest<DeletedUserResponse>
+    public class DeleteUserCommand: IRequest<DeletedUserResponse>, ISecuredRequest
     {
+        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin };
+
 
         public int Id { get; set; }
 

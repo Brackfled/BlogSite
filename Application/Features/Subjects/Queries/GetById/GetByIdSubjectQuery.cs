@@ -1,6 +1,7 @@
 ﻿using Application.Features.Subjects.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Caching;
 using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

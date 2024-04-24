@@ -23,7 +23,7 @@ namespace Application.Features.Subjects.Commands.Create
 
         public string? CacheGroupKey => "GetSubjects";
 
-        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin};
+        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin, Core.Security.Constants.GeneralOperationClaims.Author};
 
         public class CreateSubjectCommandHandler: IRequestHandler<CreateSubjectCommand, CreatedSubjectResponse>
         {

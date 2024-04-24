@@ -1,5 +1,6 @@
 ﻿using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.Application.Request;
 using Core.Application.Response;
 using Core.Persistance.Paging;
@@ -13,8 +14,10 @@ using System.Threading.Tasks;
 
 namespace Application.Features.OperationClaims.Queries.GetList
 {
-    public class GetListOperationClaimQuery : IRequest<GetListResponse<GetListOperationClaimListItemDto>>
+    public class GetListOperationClaimQuery : IRequest<GetListResponse<GetListOperationClaimListItemDto>>, ISecuredRequest
     {
+        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin };
+
         public PageRequest PageRequest { get; set; }
 
         public GetListOperationClaimQuery()

@@ -1,5 +1,6 @@
 ﻿using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Caching;
 using Core.Application.Request;
 using Core.Application.Response;
@@ -14,8 +15,9 @@ using System.Threading.Tasks;
 
 namespace Application.Features.FeedBacks.Queries.GetList
 {
-    public class GetListFeedBackQuery: IRequest<GetListResponse<GetListFeedBackListItemDto>>, ICachableRequest
+    public class GetListFeedBackQuery: IRequest<GetListResponse<GetListFeedBackListItemDto>>, ICachableRequest, ISecuredRequest
     {
+        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin };
         public PageRequest PageRequest { get; set; }
 
         public string CacheKey => $"GetListFeedBackQuery({PageRequest.PageIndex},{PageRequest.PageSize})";

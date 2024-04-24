@@ -1,6 +1,8 @@
 ﻿using Amazon.Runtime.Internal;
 using Application.Features.Files.Constants;
 using Application.Services.Repositories;
+using Core.Application.Pipelines.Authorization;
+using Core.Application.Pipelines.Caching;
 using Core.CrossCuttingConserns.Exceptions.Types;
 using Domain.Entities;
 using Infrastructure.Stroage;
@@ -13,9 +15,17 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Files.Commands.DeleteSubjectImageFile
 {
-    public class DeleteSubjectImageFileCommand: IRequest<DeletedSubjectImageFileResponse>
+    public class DeleteSubjectImageFileCommand: IRequest<DeletedSubjectImageFileResponse>, ISecuredRequest, ICacheRemoverRequest
     {
+        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin };
+
         public Guid Id { get; set; }
+
+        public string? CacheKey => "";
+
+        public bool ByPassCache { get; }
+
+        public string? CacheGroupKey => "GetListSubjectImageFiles";
 
         public class DeleteSubjectImageFileCommandHandler: IRequestHandler<DeleteSubjectImageFileCommand, DeletedSubjectImageFileResponse>
         {

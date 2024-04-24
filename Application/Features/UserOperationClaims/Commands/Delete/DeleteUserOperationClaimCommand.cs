@@ -13,8 +13,10 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UserOperationClaims.Commands.Delete
 {
-    public class DeleteUserOperationClaimCommand : IRequest<DeletedUserOperationClaimResponse>
+    public class DeleteUserOperationClaimCommand : IRequest<DeletedUserOperationClaimResponse>, ISecuredRequest
     {
+        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin };
+
         public int Id { get; set; }
 
         public class DeleteUserOperationClaimCommandHandler

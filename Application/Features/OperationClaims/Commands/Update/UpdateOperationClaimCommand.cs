@@ -13,8 +13,10 @@ using System.Threading.Tasks;
 
 namespace Application.Features.OperationClaims.Commands.Update
 {
-    public class UpdateOperationClaimCommand : IRequest<UpdatedOperationClaimResponse>
+    public class UpdateOperationClaimCommand : IRequest<UpdatedOperationClaimResponse>, ISecuredRequest
     {
+        public string[] Roles => new[] { Core.Security.Constants.GeneralOperationClaims.Admin };
+
         public int Id { get; set; }
         public string Name { get; set; }
 

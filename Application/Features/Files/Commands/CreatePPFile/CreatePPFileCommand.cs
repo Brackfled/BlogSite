@@ -3,6 +3,7 @@ using Application.Features.Files.Rules;
 using Application.Features.Users.Rules;
 using Application.Services.PPFileService;
 using Application.Services.Repositories;
+using Core.Application.Pipelines.Caching;
 using Domain.Entities;
 using Infrastructure.Stroage;
 using Insfrastructure.Stroage.AWS;
@@ -16,11 +17,17 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Files.Commands.CreatePPFile
 {
-    public class CreatePPFileCommand: IRequest<CreatedPPFileResponse>
+    public class CreatePPFileCommand: IRequest<CreatedPPFileResponse>, ICacheRemoverRequest
     {
         public int UserId { get; set; }
         public string BucketName { get; set; }
         public IFormFile FormFile { get; set; }
+
+        public string? CacheKey => "";
+
+        public bool ByPassCache { get; }
+
+        public string? CacheGroupKey => "GetListPPFiles";
 
         public class CreatePPFileCommandHandler: IRequestHandler<CreatePPFileCommand, CreatedPPFileResponse>
         {
