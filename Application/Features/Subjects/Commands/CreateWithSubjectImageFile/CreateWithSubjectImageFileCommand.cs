@@ -57,6 +57,9 @@ namespace Application.Features.Subjects.Commands.CreateWithSubjectImageFile
 
             public async Task<CreatedWithSubjectImageFileResponse> Handle(CreateWithSubjectImageFileCommand request, CancellationToken cancellationToken)
             {
+                await _fileBusinessRules.FileIsImageFile(request.FormFile.FileName.Substring(request.FormFile.FileName.LastIndexOf('.')));
+                await _fileBusinessRules.ImageSizeControl(request.FormFile, 600, 900);
+
                 Subject subject = new()
                 {
                     Id = Guid.NewGuid(),
@@ -72,8 +75,6 @@ namespace Application.Features.Subjects.Commands.CreateWithSubjectImageFile
 
                 if (addedSubject == null)
                     throw new BusinessException(SubjectMessages.SubjectDoesExists);
-
-                await _fileBusinessRules.FileIsImageFile(request.FormFile.FileName.Substring(request.FormFile.FileName.LastIndexOf('.')));
 
                 (string fileName, string bucketName, string fileUrl) addedFile = await _stroage.UploadFileAsync(request.FormFile, request.CreateWithSubjectImageFileDto.BucketName);
 

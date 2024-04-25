@@ -12,5 +12,6 @@ namespace Application.Features.Files.Constants
         public const string SubjectImageFileIsNotExists = "Konu Fotoğrafı Bulunamadı!";
         public const string OneUserOnePPFile = "Her Kullanıcın Bir Adet Profil Fotoğrafı Olabilir!";
         public const string FileNotExists = "Dosya Bulunamadı!";
+        public const string FileSizeBigger = "Dosya Boyutu Çok Yüksek!";
     }
 }

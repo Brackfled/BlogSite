@@ -52,6 +52,7 @@ namespace Application.Features.Files.Commands.CreateSubjectImageFile
             {
                 await _subjectBusinessRules.SubjectShouldBeExistsWhenSelected(request.CreateSubjectImageFileDto.SubjectId);
                 await _fileBusinessRules.FileIsImageFile(request.FormFile.FileName.Substring(request.FormFile.FileName.LastIndexOf('.')));
+                await _fileBusinessRules.ImageSizeControl(request.FormFile, 600, 900);
 
                 (string fileName, string bucketName, string fileUrl) addedFile = await _stroage.UploadFileAsync(request.FormFile, request.CreateSubjectImageFileDto.BucketName);
 

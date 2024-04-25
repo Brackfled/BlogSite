@@ -2,8 +2,11 @@
 using Application.Services.Repositories;
 using Core.Application.Rules;
 using Core.CrossCuttingConserns.Exceptions.Types;
+using Microsoft.AspNetCore.Http;
+using SixLabors.ImageSharp;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +41,26 @@ namespace Application.Features.Files.Rules
             if (result)
                 throw new BusinessException(FileMessages.OneUserOnePPFile);
 
+            return Task.CompletedTask;
+        }
+
+        public Task ImageSizeControl(IFormFile formFile, int maxWidht, int maxHeight)
+        {
+            int widht;
+            int height;
+            using (var imageStream = formFile.OpenReadStream())
+            {
+                using (var image = SixLabors.ImageSharp.Image.Load(imageStream))
+                {
+                    widht = image.Width;
+                    height = image.Height;
+                }
+            }
+
+            if (widht > maxWidht || height > maxHeight)
+            {
+                throw new BusinessException(FileMessages.FileSizeBigger);
+            }
             return Task.CompletedTask;
         }
     }

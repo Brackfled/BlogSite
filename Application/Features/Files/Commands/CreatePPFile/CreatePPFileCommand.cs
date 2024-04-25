@@ -12,11 +12,9 @@ using Infrastructure.Stroage;
 using Insfrastructure.Stroage.AWS;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.AspNetCore.Http.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,6 +52,7 @@ namespace Application.Features.Files.Commands.CreatePPFile
             {
                 await _userBusinessRules.UserIdShouldExistWhenSelected(request.UserId);
                 await _fileBusinessRules.FileIsImageFile(request.FormFile.FileName.Substring(request.FormFile.FileName.LastIndexOf('.')));
+                await _fileBusinessRules.ImageSizeControl(request.FormFile, 500, 500);
                 await _fileBusinessRules.OneUserOnePPFile(request.UserId);
 
                 (string fileName,string bucketName, string fileUrl) uploadedFile =  await _stroage.UploadFileAsync(request.FormFile, request.BucketName);
@@ -81,6 +80,7 @@ namespace Application.Features.Files.Commands.CreatePPFile
                 };
 
                 return response;
+            
             }
         }
     }
