@@ -46,7 +46,7 @@ namespace Application.Features.Subjects.Queries.GetListFromAuth
                                                                      include: s => s.Include(s => s.User).Include(s => s.Category).Include(s => s.SubjectImageFile),
                                                                      index:0,
                                                                      size:1000,
-                                                                     withDeleted:false,
+                                                                     withDeleted:true,
                                                                      cancellationToken:cancellationToken
                                                                      );
 
