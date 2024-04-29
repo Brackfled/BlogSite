@@ -26,6 +26,8 @@ namespace Persistance.EntityConfigurations
             builder.HasMany(c => c.Subjects);
 
             builder.HasQueryFilter(c => !c.DeletedDate.HasValue);
+
+            builder.HasBaseType((string)null!);
         }
     }
 }

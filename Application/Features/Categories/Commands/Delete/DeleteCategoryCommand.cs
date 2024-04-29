@@ -41,7 +41,7 @@ namespace Application.Features.Categories.Commands.Delete
                 Category? category = await _categoryRepository.GetAsync(predicate: c => c.Id == request.Id);
 
                 _mapper.Map(request, category);
-                Category deletedCategory = await _categoryRepository.DeleteAsync(category);
+                Category deletedCategory = await _categoryRepository.DeleteAsync(category, true);
 
                 DeletedCategoryResponse response = _mapper.Map<DeletedCategoryResponse>(deletedCategory);
                 return response;

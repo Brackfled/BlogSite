@@ -45,6 +45,7 @@ namespace Application.Features.Categories.Queries.GetList
                                                                                          withDeleted: true,
                                                                                          cancellationToken: cancellationToken);
 
+ 
                 GetListResponse<GetListCategoryListItemDto> response = _mapper.Map<GetListResponse<GetListCategoryListItemDto>>(categories);
                 return response;
 

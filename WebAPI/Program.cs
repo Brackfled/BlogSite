@@ -46,7 +46,8 @@ builder.Services
     );
 
 
-builder.Services.AddStackExchangeRedisCache(opt => opt.Configuration = "localhost:6379");
+//builder.Services.AddStackExchangeRedisCache(opt => opt.Configuration = "localhost:6379");
+builder.Services.AddStackExchangeRedisCache(opt => opt.Configuration = "redis-13230.c135.eu-central-1-1.ec2.redns.redis-cloud.com:13230,password=MqKvZEi7GN9Ys8eojS4w3dPJrVWBMFFw");
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -30,7 +30,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromBody] DeleteUserOperationClaimCommand deleteUserOperationClaimCommand)
+        public async Task<IActionResult> Delete([FromRoute] DeleteUserOperationClaimCommand deleteUserOperationClaimCommand)
         {
             DeletedUserOperationClaimResponse result = await Mediator.Send(deleteUserOperationClaimCommand);
             return Ok(result);

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistance.Contexts;
 
@@ -11,9 +12,11 @@ using Persistance.Contexts;
 namespace Persistance.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    partial class BaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240427124151_init-3")]
+    partial class init3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,8 +192,8 @@ namespace Persistance.Migrations
                             Email = "oncellhsyn@outlook.com",
                             FirstName = "Hüseyin",
                             LastName = "ÖNCEL",
-                            PasswordHash = new byte[] { 56, 54, 184, 126, 128, 227, 178, 53, 151, 199, 208, 11, 105, 223, 177, 69, 134, 54, 214, 220, 151, 109, 51, 118, 76, 150, 237, 14, 125, 28, 63, 77, 220, 225, 245, 112, 245, 212, 134, 230, 174, 253, 248, 233, 160, 188, 122, 128, 86, 167, 226, 128, 3, 206, 200, 63, 6, 70, 0, 80, 137, 84, 214, 160 },
-                            PasswordSalt = new byte[] { 237, 119, 148, 90, 165, 139, 98, 63, 228, 252, 5, 44, 172, 163, 60, 57, 71, 65, 211, 80, 103, 106, 133, 7, 34, 83, 1, 175, 60, 211, 175, 23, 212, 57, 41, 200, 69, 56, 68, 211, 142, 226, 4, 77, 62, 124, 74, 101, 188, 135, 12, 62, 254, 34, 60, 40, 213, 239, 131, 210, 211, 29, 198, 120, 147, 170, 5, 77, 192, 47, 146, 171, 102, 159, 255, 178, 16, 98, 206, 89, 46, 131, 165, 248, 241, 97, 27, 220, 68, 12, 145, 248, 20, 198, 58, 143, 248, 103, 67, 33, 222, 227, 33, 253, 176, 150, 135, 3, 234, 249, 140, 16, 12, 3, 206, 229, 63, 185, 246, 39, 209, 83, 142, 163, 138, 179, 83, 160 },
+                            PasswordHash = new byte[] { 202, 9, 34, 231, 110, 17, 75, 216, 118, 164, 191, 78, 12, 11, 163, 232, 162, 247, 158, 153, 214, 170, 9, 139, 223, 174, 55, 74, 98, 199, 62, 124, 53, 195, 205, 231, 95, 4, 194, 180, 46, 126, 209, 143, 86, 107, 150, 156, 153, 40, 199, 118, 11, 223, 237, 105, 17, 129, 8, 28, 189, 14, 88, 81 },
+                            PasswordSalt = new byte[] { 24, 65, 242, 167, 97, 125, 14, 154, 183, 12, 177, 25, 20, 252, 242, 251, 159, 162, 174, 18, 172, 1, 79, 203, 85, 47, 197, 63, 83, 136, 169, 56, 39, 210, 142, 180, 174, 181, 14, 34, 10, 5, 151, 126, 202, 65, 66, 133, 207, 195, 190, 128, 246, 146, 208, 93, 7, 171, 35, 95, 225, 156, 189, 116, 66, 111, 198, 247, 160, 39, 133, 97, 45, 97, 131, 35, 180, 11, 217, 75, 92, 55, 122, 44, 41, 70, 233, 190, 255, 34, 99, 104, 86, 53, 35, 218, 9, 245, 154, 39, 242, 185, 207, 139, 89, 77, 79, 210, 131, 215, 56, 159, 85, 50, 135, 67, 44, 190, 187, 193, 5, 196, 50, 27, 58, 87, 152, 213 },
                             Status = true
                         });
                 });
