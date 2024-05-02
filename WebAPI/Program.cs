@@ -66,7 +66,7 @@ if (app.Environment.IsProduction())
 
 app.UseHttpsRedirection();
 
-app.UseCors(builder => builder.WithOrigins("http://localhost:4200", "https://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+app.UseCors(builder => builder.WithOrigins("http://localhost:4200", "https://www.flepix.com.tr").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
 app.UseAuthorization();
 
